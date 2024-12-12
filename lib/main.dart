@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const WelcomePage(),
-      '/profile': (context) => const ProfileSettingsScreen(),
+      //'/profile': (context) => const ProfileSettingsScreen(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/widgets/custom_scaffold.dart';
 
 class SignIn extends StatefulWidget {
@@ -147,7 +148,15 @@ class _SignInState extends State<SignIn> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_formSignInKey.currentState!.validate()) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Homepage()),
+                              );
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             padding: EdgeInsets.symmetric(vertical: 15),
