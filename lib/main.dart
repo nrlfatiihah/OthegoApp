@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'welcomepage1.dart';
-import 'welcomepage2.dart';
+import 'package:othego_project/screens/welcome_page.dart';
 import 'package:othego_project/profile_settings_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => Welcomepage1(),
-        '/welcome2': (context) => Welcomepage2(),
-        '/profile': (context) => const ProfileSettingsScreen(),
-      },
+      title: 'Othego App',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const WelcomePage(),
+      '/profile': (context) => const ProfileSettingsScreen(),
     );
   }
 }
