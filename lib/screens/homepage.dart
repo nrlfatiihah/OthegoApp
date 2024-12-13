@@ -20,10 +20,45 @@ class _HomepageState extends State<Homepage> {
     'Tun Zaidi'
   ];
 
+  // Define _buildFeatureChip as a method of the class
+  Widget _buildFeatureChip(String label, IconData icon) {
+    return Chip(
+      labelPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      avatar: Icon(icon, size: 18, color: Colors.black),
+      label: Text(
+        label,
+        style: const TextStyle(
+            color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+      ),
+      backgroundColor: Colors.redAccent,
+    );
+  }
+
+  Widget _buildBestOfferCard(BuildContext context,
+      {required String imagePath,
+      required String title,
+      required String price,
+      required String location}) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade300,
+                blurRadius: 6,
+                spreadRadius: 1,
+                offset: const Offset(2, 2)),
+          ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFDECEC),
+      backgroundColor: const Color(0xffFDECEC),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -48,27 +83,28 @@ class _HomepageState extends State<Homepage> {
                         ),
                         const SizedBox(height: 8),
                         DropdownButton<String>(
-                            value: selectedLocation,
-                            icon: const Icon(Icons.arrow_drop_down,
-                                color: Colors.black),
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 20),
-                            items: locations.map((String location) {
-                              return DropdownMenuItem<String>(
-                                value: location,
-                                child: Text(location),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedLocation = newValue!;
-                              });
-                            }),
+                          value: selectedLocation,
+                          icon: const Icon(Icons.arrow_drop_down,
+                              color: Colors.black),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20),
+                          items: locations.map((String location) {
+                            return DropdownMenuItem<String>(
+                              value: location,
+                              child: Text(location),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedLocation = newValue!;
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(width: 20),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 35,
                     backgroundImage: AssetImage(
                       'images/profile_picture.png',
@@ -78,7 +114,7 @@ class _HomepageState extends State<Homepage> {
               ),
               const SizedBox(height: 20),
 
-              //Nearest Property Section
+              // Nearest Property Section
               const Text(
                 'Nearest by your location',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -105,19 +141,83 @@ class _HomepageState extends State<Homepage> {
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
                         'images/metrocity.jpg',
-                        height: 100,
-                        width: 100,
+                        height: 200,
+                        width: 150,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Metrocity Matang',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Metrocity Matang',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            '• Empty room with fan\n• Washing machine\n• Access door system',
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          ),
+                          const SizedBox(height: 16),
+                          Column(
+                            children: [
+                              _buildFeatureChip('7 bedrooms', Icons.king_bed),
+                              const SizedBox(height: 8),
+                              _buildFeatureChip('2 baths', Icons.bathtub),
+                              const SizedBox(height: 8),
+                              _buildFeatureChip('Washing Machine',
+                                  Icons.local_laundry_service),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 10),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('RM 350/month',
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              //Best offer Section
+              const Text(
+                'Best Offers',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildBestOfferCard(
+                    context,
+                    imagePath: 'images/samarahan.jpg',
+                    title: 'Samarahan',
+                    price: 'RM 300/month',
+                    location: '94300, Kota Samarahan, Sarawak',
+                  ),
+                  _buildBestOfferCard(
+                    context,
+                    imagePath: 'images/richmond.jpg',
+                    title: 'Richmond',
+                    price: 'RM 330/month',
+                    location: 'Royal Richmond Kuching \n@ Green Heights',
+                  ),
+                ],
               ),
             ],
           ),
