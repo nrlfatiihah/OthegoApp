@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/homepage.dart'; // Import the HomePage
 
 class FilterPage extends StatelessWidget {
   @override
@@ -112,7 +113,13 @@ class FilterPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Navigate to HomePage
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Homepage()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   shape: RoundedRectangleBorder(
@@ -135,8 +142,3 @@ class FilterPage extends StatelessWidget {
     );
   }
 }
-
-// navigate filterpage 
-//Navigator.pushNamed(context, '/filter');
-//engkah navigator ya dekat room listings page 
-
