@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/profile_settings_screen.dart';
+import 'package:othego_project/screens/profile.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -43,17 +45,60 @@ class _HomepageState extends State<Homepage> {
       width: MediaQuery.of(context).size.width * 0.4,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade300,
-                blurRadius: 6,
-                spreadRadius: 1,
-                offset: const Offset(2, 2)),
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade300,
+            blurRadius: 6,
+            spreadRadius: 1,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              imagePath,
+              height: 100,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            location,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            price,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.redAccent,
+            ),
+          ),
+        ],
+      ),
     );
   }
+
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -222,6 +267,63 @@ class _HomepageState extends State<Homepage> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.red, // Active item color
+        unselectedItemColor: Colors.black, // Inactive items color
+        backgroundColor: Colors.white,
+        iconSize: 30.0,
+        currentIndex: _currentIndex, // Update the current index dynamically
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Update the active index
+          });
+
+          if (index == 0) {
+            // Navigate to search room
+          }
+          if (index == 1) {
+            //Navigate to transaction history
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+          if (index == 3) {
+            // Navigate to contact us
+          }
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Profile()),
+            );
+          }
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Transaction History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Contact Us',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/welcome_page.dart';
-import 'package:othego_project/profile_settings_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const WelcomePage(),
-      //'/profile': (context) => const ProfileSettingsScreen(),
     );
   }
 }

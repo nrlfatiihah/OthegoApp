@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/profile_header.dart';
+import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/settings_form.dart';
 import 'package:othego_project/settings_service.dart';
 import 'package:othego_project/profile_settings.dart';
@@ -14,7 +16,7 @@ class ProfileSettingsScreen extends StatefulWidget {
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   final SettingsService _settingsService = SettingsService();
   late ProfileSettings _settings;
-  int _selectedIndex = 4; // Profile tab selected
+  int _currentIndex = 4; // Profile tab selected
 
   @override
   void initState() {
@@ -58,20 +60,61 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
-        ],
+        selectedItemColor: Colors.red, // Active item color
+        unselectedItemColor: Colors.black, // Inactive items color
+        backgroundColor: Colors.white,
+        iconSize: 30.0,
+        currentIndex: _currentIndex, // Update the current index dynamically
         onTap: (index) {
           setState(() {
-            _selectedIndex = index;
+            _currentIndex = index; // Update the active index
           });
+
+          if (index == 0) {
+            // Navigate to search room
+          }
+          if (index == 1) {
+            //Navigate to transaction history
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+          if (index == 3) {
+            // Navigate to contact us
+          }
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Profile()),
+            );
+          }
         },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Transaction History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Contact Us',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
