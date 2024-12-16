@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/welcome_page.dart';
 
 //main widget class to create an instance of the state using _ReviewRatingCustomer class
 class ReviewRatingCustomer extends StatefulWidget {
@@ -27,7 +28,11 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
         title: Text('Add your review'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const WelcomePage()),
+            );
+          },
         ),
         backgroundColor: Colors.red.shade100,
       ),
