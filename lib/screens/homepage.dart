@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:othego_project/profile_settings_screen.dart';
 import 'package:othego_project/screens/profile.dart';
 
 class Homepage extends StatefulWidget {
