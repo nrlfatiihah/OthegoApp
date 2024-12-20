@@ -205,15 +205,4 @@ class _HelpContactPageState extends State<HelpContactPage> {
       ),
     );
   }
-
-  Widget buildOptionTile(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.black54),
-      title: Text(
-        title,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-      ),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.black54),
-    );
-  }
 }
