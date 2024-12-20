@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'othegoapp/screens/profile.dart';
+import 'package:othegoapp/screens/profile.dart';
 
 class SuccessPage extends StatefulWidget {
   @override
