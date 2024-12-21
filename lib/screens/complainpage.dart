@@ -172,7 +172,13 @@ class _HelpContactPageState extends State<HelpContactPage> {
             );
           }
           if (index == 3) {
-            // Navigate to contact us
+            if (index == 3) {
+            Navigator.push(
+              context,
+            MaterialPageRoute(builder: (context) => HelpContactPage()),
+            );
+            }
+
           }
           if (index == 4) {
             Navigator.push(
