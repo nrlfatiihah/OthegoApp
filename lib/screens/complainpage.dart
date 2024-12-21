@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Othegoapp/screens/homepage.dart';
-import 'package:othegoapp/screens/profile.dart';
+import 'package:flutter/services.dart';
+import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/profile.dart';
 
 void main() {
   runApp(const HelpContactPageApp());
