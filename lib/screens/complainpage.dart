@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 
+
 void main() {
   runApp(const HelpContactPageApp());
 }
@@ -172,13 +173,10 @@ class _HelpContactPageState extends State<HelpContactPage> {
             );
           }
           if (index == 3) {
-            if (index == 3) {
             Navigator.push(
               context,
-            MaterialPageRoute(builder: (context) => HelpContactPage()),
+            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
             );
-            }
-
           }
           if (index == 4) {
             Navigator.push(
