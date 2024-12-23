@@ -42,9 +42,9 @@ class TransactionDetailsPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     //image
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
+                    //width: 100,
+                    //height: 100,
+                    //fit: BoxFit.cover,
                   ),
                 ),
                 title: Text(

@@ -70,10 +70,10 @@ class TransactionHistoryPage extends StatelessWidget {
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
-                      // add image 
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.cover,
+                      // ' ' add image 
+                      //width: ,
+                      //height: ,
+                      //fit: BoxFit.cover,
                     ),
                   ),
                   title: Text(
