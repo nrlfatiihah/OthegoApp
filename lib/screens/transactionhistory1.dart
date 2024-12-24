@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'transactionhistory2.dart';
+import 'package:othego_project/screens/profile.dart';
+import 'package:othego_project/screens/transactionhistory2.dart';
+import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/complainpage.dart';
 
-class TransactionHistoryPage extends StatelessWidget {
+class TransactionHistoryPage extends StatefulWidget {
   const TransactionHistoryPage({super.key});
+
+  @override
+  _TransactionHistoryPageState createState() => _TransactionHistoryPageState();
+}
+
+class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +79,6 @@ class TransactionHistoryPage extends StatelessWidget {
                   ],
                 ),
                 ListTile(
-                  //leading: ClipRRect(
-                  //borderRadius: BorderRadius.circular(8),
-                  //child: Image.network(
-                  // ' ' add image
-                  //width: ,
-                  //height: ,
-                  //fit: BoxFit.cover,
-                  //),
-//),
                   title: Text(
                     'Metrocity Matang',
                     style: TextStyle(
@@ -98,6 +99,69 @@ class TransactionHistoryPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
+        iconSize: 30.0,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+
+          if (index == 0) {
+            // Navigate to search room
+          }
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TransactionHistoryPage()),
+            );
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+            );
+          }
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Profile()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Transaction History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Contact Us',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
