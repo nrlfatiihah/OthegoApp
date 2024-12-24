@@ -14,11 +14,11 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFDECEC), // Light pink background
+      backgroundColor: const Color(0xFFFDECEC), // Light pink background
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           'Profile',
           style: TextStyle(
             color: Colors.black,
@@ -33,8 +33,8 @@ class _ProfileState extends State<Profile> {
           children: [
             // Profile Card
             Container(
-              margin: EdgeInsets.all(16),
-              padding: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -60,15 +60,15 @@ class _ProfileState extends State<Profile> {
                     CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.grey[200],
-                      child: Icon(
+                      child: const Icon(
                         Icons.person,
                         color: Colors.black54,
                         size: 50,
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     // User Info
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -88,7 +88,7 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.black54,
                       size: 18,
@@ -100,9 +100,9 @@ class _ProfileState extends State<Profile> {
 
             // Options List
             Container(
-              margin: EdgeInsets.all(16), // Margin around the box
+              margin: const EdgeInsets.all(16), // Margin around the box
               padding:
-                  EdgeInsets.symmetric(vertical: 8), // Padding inside the box
+                  const EdgeInsets.symmetric(vertical: 8), // Padding inside the box
               decoration: BoxDecoration(
                 color: Colors.white, // White background
                 borderRadius: BorderRadius.circular(12), // Rounded corners
@@ -132,7 +132,7 @@ class _ProfileState extends State<Profile> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.redAccent,
                   foregroundColor: Colors.white,
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -140,8 +140,8 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   // Handle logout
                 },
-                icon: Icon(Icons.logout),
-                label: Text(
+                icon: const Icon(Icons.logout),
+                label: const Text(
                   'Log out account',
                   style: TextStyle(fontSize: 16),
                 ),
@@ -184,7 +184,7 @@ class _ProfileState extends State<Profile> {
             );
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
@@ -215,9 +215,9 @@ class _ProfileState extends State<Profile> {
       leading: Icon(icon, color: Colors.black54),
       title: Text(
         title,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
-      trailing: Icon(Icons.arrow_forward_ios, size: 18, color: Colors.black54),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.black54),
     );
   }
 }

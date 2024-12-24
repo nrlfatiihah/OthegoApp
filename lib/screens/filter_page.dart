@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/screens/homepage.dart'; // Import the HomePage
 
 class FilterPage extends StatelessWidget {
+  const FilterPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFF0F0),
+      backgroundColor: const Color(0xFFFFF0F0),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
+          icon: const Icon(Icons.close, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text('Filter',
+        title: const Text('Filter',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
@@ -25,7 +27,7 @@ class FilterPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Location Dropdown
-            Row(
+            const Row(
               children: [
                 Icon(Icons.location_on, color: Colors.black),
                 SizedBox(width: 8),
@@ -34,13 +36,13 @@ class FilterPage extends StatelessWidget {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              items: [
+              items: const [
                 DropdownMenuItem(value: 'Batu 4', child: Text('Batu 4')),
                 DropdownMenuItem(value: 'batu 9', child: Text('Batu 9')),
                 DropdownMenuItem(value: 'Richmond', child: Text('Richmond')),
@@ -50,11 +52,11 @@ class FilterPage extends StatelessWidget {
                 DropdownMenuItem(value: 'Samarahan', child: Text('Samarahan')),
               ],
               onChanged: (value) {},
-              hint: Text('Select'),
+              hint: const Text('Select'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Number of Occupants Dropdown
-            Row(
+            const Row(
               children: [
                 Icon(Icons.person, color: Colors.black),
                 SizedBox(width: 8),
@@ -63,24 +65,24 @@ class FilterPage extends StatelessWidget {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              items: [
+              items: const [
                 DropdownMenuItem(value: '1', child: Text('1')),
                 DropdownMenuItem(value: '2', child: Text('2')),
                 DropdownMenuItem(
                     value: 'more than 2', child: Text('more than 2')),
               ],
               onChanged: (value) {},
-              hint: Text('Select'),
+              hint: const Text('Select'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Cost Checkbox
-            Row(
+            const Row(
               children: [
                 Icon(Icons.monetization_on, color: Colors.black),
                 SizedBox(width: 8),
@@ -89,14 +91,14 @@ class FilterPage extends StatelessWidget {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Checkbox(
                   value: false,
                   onChanged: (value) {},
                 ),
-                Text('RM 350 - RM 400'),
+                const Text('RM 350 - RM 400'),
               ],
             ),
             Row(
@@ -105,10 +107,10 @@ class FilterPage extends StatelessWidget {
                   value: false,
                   onChanged: (value) {},
                 ),
-                Text('RM 400 - RM 450'),
+                const Text('RM 400 - RM 450'),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             // Filter Button
             SizedBox(
               width: double.infinity,
@@ -125,9 +127,9 @@ class FilterPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: Text(
+                child: const Text(
                   'FILTER',
                   style: TextStyle(
                       color: Colors.white,

@@ -5,6 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +28,13 @@ class DashboardScreen extends StatelessWidget {
         backgroundColor: Colors.red[300],
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Dashboard',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: EdgeInsets.only(right: 8.0),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(Icons.person, color: Colors.blue),
@@ -61,7 +65,7 @@ class DashboardScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomerReviewSection(),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -102,10 +106,12 @@ class SidebarItem extends StatelessWidget {
 }
 
 class CustomerReviewSection extends StatelessWidget {
+  const CustomerReviewSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -119,34 +125,34 @@ class CustomerReviewSection extends StatelessWidget {
                 radius: 30,
                 child: Icon(Icons.person, size: 40, color: Colors.red[800]),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Customer Review',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     children: List.generate(
                       5,
                       (index) =>
-                          Icon(Icons.star, color: Colors.amber, size: 18),
+                          const Icon(Icons.star, color: Colors.amber, size: 18),
                     ),
                   )
                 ],
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey[300],
               foregroundColor: Colors.black,
             ),
-            child: Text('View Customer Review'),
+            child: const Text('View Customer Review'),
           )
         ],
       ),
@@ -161,7 +167,7 @@ class InfoCard extends StatelessWidget {
   final String? secondaryPercentage;
   final Color? chartColor;
 
-  InfoCard({
+  const InfoCard({super.key, 
     required this.title,
     this.isBold = false,
     this.percentage,
@@ -172,7 +178,7 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.red[400],
         borderRadius: BorderRadius.circular(10),
@@ -197,10 +203,12 @@ class InfoCard extends StatelessWidget {
 }
 
 class CustomerAccountsCard extends StatelessWidget {
+  const CustomerAccountsCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.red[400],
         borderRadius: BorderRadius.circular(10),
@@ -208,14 +216,14 @@ class CustomerAccountsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Customer Accounts',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Wrap(
             spacing: 8, // Horizontal spacing between items
             runSpacing: 8, // Vertical spacing between rows
@@ -227,13 +235,13 @@ class CustomerAccountsCard extends StatelessWidget {
                   CircleAvatar(
                     radius: 20,
                     backgroundColor: Colors.red[200],
-                    child: Icon(Icons.person, color: Colors.white),
+                    child: const Icon(Icons.person, color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                       height: 4), // Space between the icon and the username
                   Text(
                     'User ${index + 1}', // User name
-                    style: TextStyle(fontSize: 12, color: Colors.black),
+                    style: const TextStyle(fontSize: 12, color: Colors.black),
                   ),
                 ],
               ),

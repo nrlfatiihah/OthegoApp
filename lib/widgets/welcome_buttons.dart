@@ -18,7 +18,7 @@ class WelcomeButtons extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
           color: color!,
           borderRadius: const BorderRadius.only(

@@ -15,7 +15,7 @@ class WelcomePage extends StatelessWidget {
           Flexible(
             flex: 8,
             child: Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 0,
                 horizontal: 40.0,
               ),
@@ -38,7 +38,7 @@ class WelcomePage extends StatelessWidget {
               )),
             ),
           ),
-          Flexible(
+          const Flexible(
             flex: 1,
             child: Align(
               alignment: Alignment.bottomRight,

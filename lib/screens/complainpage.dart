@@ -9,7 +9,7 @@ void main() {
 }
 
 class HelpContactPageApp extends StatelessWidget {
-  const HelpContactPageApp({Key? key}) : super(key: key);
+  const HelpContactPageApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,8 @@ class HelpContactPageApp extends StatelessWidget {
 }
 
 class HelpContactPage extends StatefulWidget {
+  const HelpContactPage({super.key});
+
   @override
   State<HelpContactPage> createState() => _HelpContactPageState();
 }
@@ -123,11 +125,11 @@ class _HelpContactPageState extends State<HelpContactPage> {
               ),
             ),
             const Spacer(),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
-                  children: const [
+                  children: [
                     Icon(Icons.phone, color: Colors.black),
                     SizedBox(height: 5),
                     Text("Phone"),
@@ -135,7 +137,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
                   ],
                 ),
                 Column(
-                  children: const [
+                  children: [
                     Icon(Icons.email, color: Colors.black),
                     SizedBox(height: 5),
                     Text("E-MAIL"),
@@ -175,7 +177,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+            MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
             );
           }
           if (index == 4) {

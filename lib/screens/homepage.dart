@@ -301,7 +301,7 @@ class _HomepageState extends State<Homepage> {
             );
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',

@@ -25,9 +25,9 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
       appBar: AppBar(
         //create an app bar with title and a button
         //display the title with back button
-        title: Text('Add your review'),
+        title: const Text('Add your review'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const WelcomePage()),
@@ -68,8 +68,8 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                           height: 100,
                           fit: BoxFit.cover,
                         ),
-                        SizedBox(width: 16.0),
-                        Expanded(
+                        const SizedBox(width: 16.0),
+                        const Expanded(
                           child: Column(
                             //second column of the property cards
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,13 +98,13 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                     ),
                   ), //end property details card
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   //label prompts
                   'How long were you as a tenant?',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                TextField(
+                const TextField(
                   //allow user to enter how long they stayed as tenants
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -115,37 +115,37 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                     hintText: ' ',
                   ),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   //rating section
                   "Let's rate your room",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //calling the rating method to creates a row with stars
                     _buildRatingRow('Rent Price', 0),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     _buildRatingRow('Amenities Provided', 1),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     _buildRatingRow('Cleanliness, Comfort & Safety', 2),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     _buildRatingRow('Noise', 3),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     _buildRatingRow('Parking', 4),
-                    SizedBox(height: 4.0),
+                    const SizedBox(height: 4.0),
                     _buildRatingRow('Would you recommend property?', 5),
                   ],
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   //allow user to type in by providing a multi-line text
                   'What should we improve?',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                TextField(
+                const TextField(
                   maxLines: 3,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -154,7 +154,7 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                     hintText: 'State your review here...',
                   ),
                 ),
-                SizedBox(height: 24.0),
+                const SizedBox(height: 24.0),
                 Center(
                   //submit button
                   child: ElevatedButton(
@@ -163,7 +163,7 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20.0)),
                         ),
@@ -173,30 +173,30 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                             height: MediaQuery.of(context).size.height *
                                 0.35, // 35% of screen height
                             width: double.infinity, // Full width
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20.0)),
                             ),
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.check_circle,
                                   color: Colors.red,
                                   size: 80, // Large check icon
                                 ),
-                                SizedBox(height: 16),
-                                Text(
+                                const SizedBox(height: 16),
+                                const Text(
                                   'Thank you for your review!',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 24),
+                                const SizedBox(height: 24),
                                 ElevatedButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
@@ -204,10 +204,10 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red,
                                     foregroundColor: Colors.white,
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 40, vertical: 12),
                                   ),
-                                  child: Text(
+                                  child: const Text(
                                     'Review Submitted',
                                     style: TextStyle(fontSize: 16),
                                   ),
@@ -222,9 +222,9 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                          const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Submit Your Review',
                       style: TextStyle(fontSize: 16),
                     ),

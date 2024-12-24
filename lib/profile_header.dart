@@ -29,10 +29,10 @@ class ProfileHeader extends StatelessWidget {
                   child: Row(
                     children: [
                       const SizedBox(width: 16),
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 35,
                         backgroundColor: Colors.white,
-                        child: const Icon(Icons.person_outline, size: 40, color: Colors.black54),
+                        child: Icon(Icons.person_outline, size: 40, color: Colors.black54),
                       ),
                       const SizedBox(width: 16),
                       TextButton(

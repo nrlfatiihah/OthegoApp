@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
     return CustomScaffold(
       child: Column(
         children: [
-          Expanded(
+          const Expanded(
               flex: 1,
               child: SizedBox(
                 height: 10,
@@ -39,7 +39,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Welcome Back',
                         style: TextStyle(
                             fontSize: 30.0,
@@ -134,7 +134,7 @@ class _SignInState extends State<SignIn> {
                             ],
                           ),
                           GestureDetector(
-                            child: Text(
+                            child: const Text(
                               'Forget Password',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 25.0),
+                      const SizedBox(height: 25.0),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -153,18 +153,18 @@ class _SignInState extends State<SignIn> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Homepage()),
+                                    builder: (context) => const Homepage()),
                               );
                             }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
-                            padding: EdgeInsets.symmetric(vertical: 15),
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Sign In",
                             style: TextStyle(
                               fontSize: 18,
@@ -173,15 +173,15 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 25.0),
+                      const SizedBox(height: 25.0),
                       // Social Media Signin
-                      Row(
+                      const Row(
                         children: [
                           Expanded(
                             child: Divider(thickness: 1, color: Colors.grey),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
                               "Sign in with",
                               style: TextStyle(color: Colors.grey),
@@ -192,23 +192,23 @@ class _SignInState extends State<SignIn> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //Facebook Icon
                           GestureDetector(
                             onTap: () {},
-                            child: CircleAvatar(
+                            child: const CircleAvatar(
                               backgroundColor: Colors.blue,
                               child: Icon(Icons.facebook, color: Colors.white),
                             ),
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           // Google Icon
                           GestureDetector(
                             onTap: () {},
-                            child: CircleAvatar(
+                            child: const CircleAvatar(
                               backgroundColor: Colors.red,
                               child:
                                   Icon(Icons.g_mobiledata, color: Colors.white),
@@ -216,12 +216,12 @@ class _SignInState extends State<SignIn> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Center(
                         child: GestureDetector(
                             onTap: () {},
                             child: RichText(
-                              text: TextSpan(
+                              text: const TextSpan(
                                   text: "Don't have an account? ",
                                   style: TextStyle(color: Colors.black),
                                   children: [

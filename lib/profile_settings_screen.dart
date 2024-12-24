@@ -93,7 +93,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             );
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
