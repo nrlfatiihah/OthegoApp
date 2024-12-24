@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/screens/admin_viewComplain2.dart';
 
 void main() {
-  runApp(AdminViewComplain());
+  runApp(const AdminViewComplain());
 }
 
 class AdminViewComplain extends StatelessWidget {
+  const AdminViewComplain({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AdminViewComplainScreen(),
     );
@@ -41,6 +43,8 @@ class AdminViewComplainScreen extends StatelessWidget {
     },
   ];
 
+  const AdminViewComplainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,13 +53,13 @@ class AdminViewComplainScreen extends StatelessWidget {
         backgroundColor: Colors.red[300],
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Customer Complaint',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: EdgeInsets.only(right: 8.0),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(Icons.person, color: Colors.blue),
@@ -85,7 +89,7 @@ class AdminViewComplainScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final complaint = complaints[index];
           return Card(
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -93,26 +97,26 @@ class AdminViewComplainScreen extends StatelessWidget {
                 children: [
                   Text(
                     complaint['name'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     complaint['date'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     complaint['description'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -121,13 +125,13 @@ class AdminViewComplainScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AdminViewComplain2()),
+                                builder: (context) => const AdminViewComplain2()),
                           );
                         },
-                        child: Text('View Complaint'),
+                        child: const Text('View Complaint'),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 6,
                         ),
@@ -137,7 +141,7 @@ class AdminViewComplainScreen extends StatelessWidget {
                         ),
                         child: Text(
                           complaint['status'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),

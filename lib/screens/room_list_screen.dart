@@ -4,17 +4,19 @@ import 'package:othego_project/services/database_service.dart';
 import 'package:othego_project/models/room.dart';
 
 class RoomListScreen extends StatelessWidget {
+  const RoomListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Available Rooms'),
+        title: const Text('Available Rooms'),
       ),
       body: FutureBuilder<List<Room>>(
         future: DatabaseService.getRooms(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           
           if (snapshot.hasError) {
@@ -36,34 +38,34 @@ class RoomListScreen extends StatelessWidget {
                   );
                 },
                 child: Card(
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.network(
-                        room.imageUrl,
+                        room.images,
                         height: 200,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
                       Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               room.name,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               room.location,
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               'RM ${room.price.toStringAsFixed(2)} /month',
-                              style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -77,6 +79,30 @@ class RoomListScreen extends StatelessWidget {
             },
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long),
+            label: 'Transaction History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Contact Us',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }

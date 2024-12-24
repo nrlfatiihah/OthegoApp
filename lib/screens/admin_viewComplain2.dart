@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(AdminViewComplain2());
+  runApp(const AdminViewComplain2());
 }
 
 class AdminViewComplain2 extends StatelessWidget {
+  const AdminViewComplain2({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AdminViewComplain2Screen(),
     );
@@ -15,6 +17,8 @@ class AdminViewComplain2 extends StatelessWidget {
 }
 
 class AdminViewComplain2Screen extends StatefulWidget {
+  const AdminViewComplain2Screen({super.key});
+
   @override
   _AdminViewComplain2ScreenState createState() =>
       _AdminViewComplain2ScreenState();
@@ -38,13 +42,13 @@ class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
         backgroundColor: Colors.red[300],
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Customer Complaint',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: EdgeInsets.only(right: 8.0),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(Icons.person, color: Colors.blue),
@@ -83,7 +87,7 @@ class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
                 children: [
                   ClipRRect(
                     borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(12)),
+                        const BorderRadius.vertical(top: Radius.circular(12)),
                     child: Image.asset(
                       'images/Tun_Zaidi_11.jpg',
                       height: 200,
@@ -98,26 +102,26 @@ class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
                       children: [
                         Text(
                           complaint['name'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           complaint['date'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.grey,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           complaint['description'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         DropdownButtonFormField<String>(
                           value: selectedStatus,
                           decoration: InputDecoration(
@@ -144,7 +148,7 @@ class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -153,9 +157,9 @@ class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: Text(
+                child: const Text(
                   'UPDATE',
                   style: TextStyle(
                     color: Colors.white,

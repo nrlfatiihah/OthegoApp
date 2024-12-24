@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TransactionDetailsPage extends StatelessWidget {
+  const TransactionDetailsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,12 +11,12 @@ class TransactionDetailsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context); // Go back to the previous page
           },
         ),
-        title: Text(
+        title: const Text(
           'Transaction Details',
           style: TextStyle(color: Colors.black),
         ),
@@ -30,11 +32,11 @@ class TransactionDetailsPage extends StatelessWidget {
               BoxShadow(
                 color: Colors.grey.shade300,
                 blurRadius: 10,
-                offset: Offset(0, 5),
+                offset: const Offset(0, 5),
               ),
             ],
           ),
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
@@ -65,7 +67,7 @@ class TransactionDetailsPage extends StatelessWidget {
               ),
               Divider(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -22,7 +22,7 @@ class RoomDetailsScreen extends StatelessWidget {
           }
 
           final room = snapshot.data!;
-          
+
           return CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -32,7 +32,8 @@ class RoomDetailsScreen extends StatelessWidget {
                   background: Stack(
                     children: [
                       Image.network(
-                        room.imageUrl,
+                        room.images
+                        ,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -91,9 +92,11 @@ class RoomDetailsScreen extends StatelessWidget {
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
-                        children: room.amenities.map((amenity) => Chip(
-                          label: Text(amenity),
-                        )).toList(),
+                        children: room.amenities.split(',')
+                            .map((amenities) => Chip(
+                                  label: Text(amenities.trim()),
+                                ))
+                            .toList(),
                       ),
                     ],
                   ),
@@ -103,8 +106,8 @@ class RoomDetailsScreen extends StatelessWidget {
           );
         },
       ),
-
-      items: const [
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
@@ -126,44 +129,6 @@ class RoomDetailsScreen extends StatelessWidget {
             label: 'Profile',
           ),
         ],
-      ),
-      
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 4,
-              offset: Offset(0, -2),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'RM ${snapshot.data?.price.toStringAsFixed(2) ?? "0"} /month',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const Text('See all prices'),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: Text('Book Now'),
-            ),
-          ],
-        ),
       ),
     );
   }

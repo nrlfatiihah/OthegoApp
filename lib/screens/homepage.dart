@@ -295,7 +295,7 @@ class _HomepageState extends State<Homepage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HelpContactPage()),
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
             );
           }
           if (index == 4) {

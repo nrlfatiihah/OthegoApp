@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'transactionhistory2.dart';
 
 class TransactionHistoryPage extends StatelessWidget {
+  const TransactionHistoryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +11,7 @@ class TransactionHistoryPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Transaction History',
           style: TextStyle(color: Colors.black),
         ),
@@ -22,7 +24,7 @@ class TransactionHistoryPage extends StatelessWidget {
             // Navigate to Transaction Details Page
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => TransactionDetailsPage()),
+              MaterialPageRoute(builder: (context) => const TransactionDetailsPage()),
             );
           },
           child: Container(
@@ -33,18 +35,18 @@ class TransactionHistoryPage extends StatelessWidget {
                 BoxShadow(
                   color: Colors.grey.shade300,
                   blurRadius: 10,
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
                         'Transaction Successful',
                         style: TextStyle(
@@ -55,7 +57,7 @@ class TransactionHistoryPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
                         '10 October 2024',
                         style: TextStyle(

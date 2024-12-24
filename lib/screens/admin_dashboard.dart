@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Dashboard UI',
       home: DashboardScreen(),
       debugShowCheckedModeBanner: false,
@@ -64,14 +64,14 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomerReviewSection(),
+            const CustomerReviewSection(),
             const SizedBox(height: 12),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                children: [
+                children: const [
                   InfoCard(title: "Transaction Records", isBold: true),
                   InfoCard(title: "Customer Complaint", isBold: true),
                   CustomerAccountsCard(),

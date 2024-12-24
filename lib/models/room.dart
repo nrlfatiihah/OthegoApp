@@ -1,5 +1,5 @@
 class Room {
-  final String id;
+  final int id;
   final String name;
   final String location;
   final double price;
@@ -33,7 +33,7 @@ class Room {
       images: map['images'],
       rating: map['rating'],
       reviewCount: map['review_count'],
-      amenities: map['amenities'],
+      amenities: map['amenities' as String].split(','),
       address: map['address'],
     );
   }
