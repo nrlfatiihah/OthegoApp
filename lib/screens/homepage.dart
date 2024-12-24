@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/profile.dart';
 
 class Homepage extends StatefulWidget {
@@ -292,7 +293,10 @@ class _HomepageState extends State<Homepage> {
             );
           }
           if (index == 3) {
-            // Navigate to contact us
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HelpContactPage()),
+            );
           }
           if (index == 4) {
             Navigator.push(

@@ -2,23 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
-
-
-void main() {
-  runApp(const HelpContactPageApp());
-}
-
-class HelpContactPageApp extends StatelessWidget {
-  const HelpContactPageApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HelpContactPage(),
-    );
-  }
-}
+import 'package:othego_project/screens/successfulcomplain.dart';
 
 class HelpContactPage extends StatefulWidget {
   @override
@@ -101,7 +85,10 @@ class _HelpContactPageState extends State<HelpContactPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Implement submit action
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => SuccessPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFF4747),
@@ -175,7 +162,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => HelpContactPage()),
             );
           }
           if (index == 4) {

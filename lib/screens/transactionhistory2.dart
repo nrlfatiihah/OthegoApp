@@ -38,15 +38,15 @@ class TransactionDetailsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    //image
-                    //width: 100,
-                    //height: 100,
-                    //fit: BoxFit.cover,
-                  ),
-                ),
+                //leading: ClipRRect(
+                //borderRadius: BorderRadius.circular(8),
+                //child: Image.network(
+                //image
+                //width: 100,
+                //height: 100,
+                //fit: BoxFit.cover,
+                //),
+                //),
                 title: Text(
                   'Metrocity Matang',
                   style: TextStyle(

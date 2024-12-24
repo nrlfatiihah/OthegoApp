@@ -67,15 +67,15 @@ class TransactionHistoryPage extends StatelessWidget {
                   ],
                 ),
                 ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      // ' ' add image 
-                      //width: ,
-                      //height: ,
-                      //fit: BoxFit.cover,
-                    ),
-                  ),
+                  //leading: ClipRRect(
+                  //borderRadius: BorderRadius.circular(8),
+                  //child: Image.network(
+                  // ' ' add image
+                  //width: ,
+                  //height: ,
+                  //fit: BoxFit.cover,
+                  //),
+//),
                   title: Text(
                     'Metrocity Matang',
                     style: TextStyle(
