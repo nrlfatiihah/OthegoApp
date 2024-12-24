@@ -9,7 +9,7 @@ void main() {
 }
 
 class HelpContactPageApp extends StatelessWidget {
-  const HelpContactPageApp({super.key});
+  const HelpContactPageApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,10 @@ class _HelpContactPageState extends State<HelpContactPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Implement submit action
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => SuccessPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFF4747),
@@ -177,7 +180,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-            MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
+            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
             );
           }
           if (index == 4) {
