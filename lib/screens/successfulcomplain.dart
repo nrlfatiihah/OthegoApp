@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 
+
 class SuccessPage extends StatefulWidget {
   const SuccessPage({super.key});
 
