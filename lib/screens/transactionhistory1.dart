@@ -78,7 +78,18 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                     ),
                   ],
                 ),
+                
+        
                 ListTile(
+                  //leading: ClipRRect(
+                  //borderRadius: BorderRadius.circular(8),
+                  //child: Image.network(
+                  // ' ' add image
+                  //width: ,
+                  //height: ,
+                  //fit: BoxFit.cover,
+                  //),
+//),
                   title: Text(
                     'Metrocity Matang',
                     style: TextStyle(

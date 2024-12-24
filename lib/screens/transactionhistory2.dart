@@ -50,7 +50,16 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListTile(
+                ListTile(
+                //leading: ClipRRect(
+                //borderRadius: BorderRadius.circular(8),
+                //child: Image.network(
+                //image
+                //width: 100,
+                //height: 100,
+                //fit: BoxFit.cover,
+                //),
+                //),
                 title: Text(
                   'Metrocity Matang',
                   style: TextStyle(
