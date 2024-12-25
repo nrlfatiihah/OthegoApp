@@ -12,7 +12,7 @@ class AdminViewComplain extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AdminViewComplainScreen(),
+      //home: AdminViewComplainScreen(),
     );
   }
 }
@@ -43,7 +43,7 @@ class AdminViewComplainScreen extends StatelessWidget {
     },
   ];
 
-  const AdminViewComplainScreen({super.key});
+  AdminViewComplainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +125,8 @@ class AdminViewComplainScreen extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const AdminViewComplain2()),
+                                builder: (context) =>
+                                    const AdminViewComplain2()),
                           );
                         },
                         child: const Text('View Complaint'),

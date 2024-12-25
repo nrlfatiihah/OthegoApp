@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/profile.dart';
+import 'package:othego_project/screens/room_list_screen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -281,7 +282,10 @@ class _HomepageState extends State<Homepage> {
           });
 
           if (index == 0) {
-            // Navigate to search room
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RoomListScreen()),
+            );
           }
           if (index == 1) {
             //Navigate to transaction history
