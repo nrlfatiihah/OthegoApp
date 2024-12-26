@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
+
 
 
 void main() {
@@ -31,7 +31,6 @@ class HelpContactPage extends StatefulWidget {
 
 class _HelpContactPageState extends State<HelpContactPage> {
   int _currentIndex = 0;
-  String? uploadedFileName; // Store the file name
 
   @override
   Widget build(BuildContext context) {
@@ -90,28 +89,16 @@ class _HelpContactPageState extends State<HelpContactPage> {
               ),
             ),
             const SizedBox(height: 15),
-            GestureDetector(
-              onTap: () async {
-                FilePickerResult? result =
-                    await FilePicker.platform.pickFiles(
-                  type: FileType.image, // Allows only image files
-                );
-                if (result != null) {
-                  setState(() {
-                    uploadedFileName = result.files.single.name;
-                  });
-                }
-              },
-              child: TextField(
-                enabled: false, // Disable manual text input
-                decoration: InputDecoration(
-                  hintText: uploadedFileName ?? "Upload additional files here",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  suffixIcon: const Icon(Icons.upload_file),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Upload additional files here",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
+              onTap: () {
+                // Implement file upload functionality here.
+              },
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -120,9 +107,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => SuccessPage(),
-                    ),
+                    MaterialPageRoute(builder: (context) => SuccessPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -197,8 +182,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const HelpContactPageApp()),
+            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
             );
           }
           if (index == 4) {
