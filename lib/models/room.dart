@@ -1,40 +1,21 @@
 class Room {
-  final int id;
   final String name;
-  final String location;
-  final double price;
   final String description;
-  final String images;
+  final double pricePerMonth;
+  final List<String> features;
+  final List<String> images;
+  final String location;
   final double rating;
-  final int reviewCount;
-  final String amenities;
-  final String address;
+  final int reviews;
 
   Room({
-    required this.id,
     required this.name,
-    required this.location,
-    required this.price,
     required this.description,
+    required this.pricePerMonth,
+    required this.features,
     required this.images,
+    required this.location,
     required this.rating,
-    required this.reviewCount,
-    required this.amenities,
-    required this.address,
+    required this.reviews,
   });
-
-  factory Room.fromMap(Map<String, dynamic> map) {
-    return Room(
-      id: map['id'],
-      name: map['name'],
-      location: map['location'],
-      price: map['price'],
-      description: map['description'],
-      images: map['images'],
-      rating: map['rating'],
-      reviewCount: map['review_count'],
-      amenities: map['amenities' as String].split(','),
-      address: map['address'],
-    );
-  }
 }

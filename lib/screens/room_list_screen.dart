@@ -1,107 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:othego_project/screens/room_details_screen.dart';
-import 'package:othego_project/services/database_service.dart';
 import 'package:othego_project/models/room.dart';
+import 'package:othego_project/widgets/room_card.dart';
 
 class RoomListScreen extends StatelessWidget {
-  const RoomListScreen({super.key});
+  const RoomListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Available Rooms'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text('Show room page'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: FutureBuilder<List<Room>>(
-        future: DatabaseService.getRooms(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-
-          final rooms = snapshot.data!;
-          return ListView.builder(
-            itemCount: rooms.length,
-            itemBuilder: (context, index) {
-              final room = rooms[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RoomDetailsScreen(roomId: room.id),
-                    ),
-                  );
-                },
-                child: Card(
-                  margin: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        room.images,
-                        height: 200,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              room.name,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              room.location,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'RM ${room.price.toStringAsFixed(2)} /month',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          RoomCard(
+            room: Room(
+              name: 'Metrocity Matang',
+              description: 'Empty room with fan\nWashing machine\nAccess door system',
+              pricePerMonth: 350,
+              features: ['7 bedrooms', '3 baths', 'Washing Machine provided'],
+              images: ['https://example.com/room-image.jpg'],
+              location: 'Lot 183 corner lot Lot 182 (intermediate lot), Metro City, Q3059, Taman Fan Yah, 93050 Kuching, Sarawak',
+              rating: 4.0,
+              reviews: 70,
+            ),
+            onTap: () => Navigator.pushNamed(context, '/room-details'),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Transaction History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Contact Us',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Orders'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chat'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );

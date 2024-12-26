@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/room.dart';
-import 'package:othego_project/services/database_service.dart';
+import 'package:othego_project/models/room.dart';
 
 class RoomDetailsScreen extends StatelessWidget {
   final int roomId;
@@ -107,6 +106,7 @@ class RoomDetailsScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
+        
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
