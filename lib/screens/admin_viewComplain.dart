@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/admin_viewComplain2.dart';
 
-void main() {
-  runApp(const AdminViewComplain());
-}
-
-class AdminViewComplain extends StatelessWidget {
+class AdminViewComplain extends StatefulWidget {
   const AdminViewComplain({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //home: AdminViewComplainScreen(),
-    );
-  }
+  _AdminViewComplainState createState() => _AdminViewComplainState();
 }
 
-class AdminViewComplainScreen extends StatelessWidget {
+class _AdminViewComplainState extends State<AdminViewComplain> {
   final List<Map<String, dynamic>> complaints = [
     {
       'name': 'Kamal',
       'date': '27.11.2024',
       'description': 'The toilet is leaking, and it needs repair.',
       'status': 'New',
-      'statusColor': Colors.green
+      'statusColor': Colors.green,
+      'image': 'images/Tun_Zaidi_11.jpg'
     },
     {
       'name': 'Mia',
@@ -32,18 +24,31 @@ class AdminViewComplainScreen extends StatelessWidget {
       'description':
           'The front door lock is broken and poses a security concern.',
       'status': 'In Progress',
-      'statusColor': Colors.red
+      'statusColor': Colors.orange,
+      'image': 'images/door_access.jpg'
     },
     {
       'name': 'Robin',
       'date': '01.11.2024',
-      'description': 'The air conditioning unit is not working.',
+      'description': 'The washing machine unit is not working.',
       'status': 'Completed',
-      'statusColor': Colors.blue
+      'statusColor': Colors.blue,
+      'image': 'images/washing_machine.jpg'
     },
   ];
 
-  AdminViewComplainScreen({super.key});
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'New':
+        return Colors.green;
+      case 'In Progress':
+        return Colors.orange;
+      case 'Completed':
+        return Colors.blue;
+      default:
+        return Colors.grey;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,11 +127,20 @@ class AdminViewComplainScreen extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const AdminViewComplain2()),
+                              builder: (context) => AdminViewComplain2(
+                                complaint: complaint,
+                                onUpdateStatus: (newStatus) {
+                                  setState(() {
+                                    complaints[index]['status'] = newStatus;
+                                    complaints[index]['statusColor'] =
+                                        _getStatusColor(newStatus);
+                                  });
+                                },
+                              ),
+                            ),
                           );
                         },
                         child: const Text('View Complaint'),

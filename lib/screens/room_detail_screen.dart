@@ -31,8 +31,7 @@ class RoomDetailsScreen extends StatelessWidget {
                   background: Stack(
                     children: [
                       Image.network(
-                        room.images
-                        ,
+                        room.images,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -91,7 +90,8 @@ class RoomDetailsScreen extends StatelessWidget {
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
-                        children: room.amenities.split(',')
+                        children: room.amenities
+                            .split(',')
                             .map((amenities) => Chip(
                                   label: Text(amenities.trim()),
                                 ))
@@ -106,7 +106,6 @@ class RoomDetailsScreen extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),

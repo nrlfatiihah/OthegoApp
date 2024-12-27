@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/admin_viewComplain.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,13 +49,31 @@ class DashboardScreen extends StatelessWidget {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: const [
-              SidebarItem(title: 'Dashboard'),
-              SidebarItem(title: 'Room Listings'),
-              SidebarItem(title: 'Customer Account'),
-              SidebarItem(title: 'Review & Rating'),
-              SidebarItem(title: 'Transaction Records'),
-              SidebarItem(title: 'Customer Complaint'),
+            children: [
+              const SidebarItem(
+                title: 'Dashboard',
+                destination: const DashboardScreen(),
+              ),
+              const SidebarItem(
+                title: 'Room Listings',
+                destination: const DashboardScreen(),
+              ),
+              const SidebarItem(
+                title: 'Customer Account',
+                destination: const DashboardScreen(),
+              ),
+              const SidebarItem(
+                title: 'Review & Rating',
+                destination: const DashboardScreen(),
+              ),
+              const SidebarItem(
+                title: 'Transaction Records',
+                destination: const DashboardScreen(),
+              ),
+              SidebarItem(
+                title: 'Customer Complaint',
+                destination: const AdminViewComplain(),
+              ),
             ],
           ),
         ),
@@ -87,18 +106,31 @@ class DashboardScreen extends StatelessWidget {
 
 class SidebarItem extends StatelessWidget {
   final String title;
+  final Widget destination;
 
-  const SidebarItem({super.key, required this.title});
+  const SidebarItem({
+    super.key,
+    required this.title,
+    required this.destination,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 20,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
         ),
       ),
     );
@@ -167,7 +199,8 @@ class InfoCard extends StatelessWidget {
   final String? secondaryPercentage;
   final Color? chartColor;
 
-  const InfoCard({super.key, 
+  const InfoCard({
+    super.key,
     required this.title,
     this.isBold = false,
     this.percentage,

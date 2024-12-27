@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const AdminViewComplain2());
-}
+class AdminViewComplain2 extends StatefulWidget {
+  final Map<String, dynamic> complaint;
+  final Function(String) onUpdateStatus;
 
-class AdminViewComplain2 extends StatelessWidget {
-  const AdminViewComplain2({super.key});
+  const AdminViewComplain2({
+    Key? key,
+    required this.complaint,
+    required this.onUpdateStatus,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AdminViewComplain2Screen(),
-    );
+  _AdminViewComplain2State createState() => _AdminViewComplain2State();
+}
+
+class _AdminViewComplain2State extends State<AdminViewComplain2> {
+  late String selectedStatus = 'New';
+
+  @override
+  void initState() {
+    super.initState();
+    selectedStatus = widget.complaint['status'];
   }
-}
-
-class AdminViewComplain2Screen extends StatefulWidget {
-  const AdminViewComplain2Screen({super.key});
-
-  @override
-  _AdminViewComplain2ScreenState createState() =>
-      _AdminViewComplain2ScreenState();
-}
-
-class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
-  String selectedStatus = 'New';
-
-  final Map<String, dynamic> complaint = {
-    'name': 'Kamal',
-    'date': '27.11.2024',
-    'description': 'The toilet is leaking, and it needs repair.',
-    'image': 'images/Tun_Zaidi_11.jpg',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -56,113 +45,95 @@ class _AdminViewComplain2ScreenState extends State<AdminViewComplain2Screen> {
           )
         ],
       ),
-      drawer: Drawer(
-        //SideBar
-        child: Container(
-          color: Colors.black, // Background color for sidebar
-          child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: const [
-              SidebarItem(title: 'Dashboard'),
-              SidebarItem(title: 'Room Listings'),
-              SidebarItem(title: 'Customer Account'),
-              SidebarItem(title: 'Review & Rating'),
-              SidebarItem(title: 'Transaction Records'),
-              SidebarItem(title: 'Customer Complaint'),
-            ],
-          ),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Displaying the image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                widget.complaint['image'] ?? 'images/default.jpg',
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Complaint details
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(12)),
-                    child: Image.asset(
-                      'images/Tun_Zaidi_11.jpg',
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.complaint['name'],
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          complaint['name'],
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          complaint['date'],
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          complaint['description'],
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        DropdownButtonFormField<String>(
-                          value: selectedStatus,
-                          decoration: InputDecoration(
-                            labelText: 'Status',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          items: ['New', 'In Progress', 'Completed']
-                              .map((status) => DropdownMenuItem(
-                                    value: status,
-                                    child: Text(status),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedStatus = value!;
-                            });
-                          },
-                        ),
-                      ],
+                    const SizedBox(height: 4),
+                    Text(
+                      widget.complaint['date'],
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      widget.complaint['description'],
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    DropdownButtonFormField<String>(
+                      value: selectedStatus,
+                      decoration: InputDecoration(
+                        labelText: 'Status',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      items: ['New', 'In Progress', 'Completed']
+                          .map((status) => DropdownMenuItem(
+                                value: status,
+                                child: Text(status),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedStatus = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 16),
+            // Update button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle update logic here
+                  widget.onUpdateStatus(selectedStatus);
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
+                  foregroundColor: Colors.white, // Text color
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
                 child: const Text(
                   'UPDATE',
                   style: TextStyle(
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
