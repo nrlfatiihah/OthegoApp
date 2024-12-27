@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
-
-
+import 'package:file_picker/file_picker.dart';
 
 void main() {
   runApp(const HelpContactPageApp());
@@ -31,6 +30,23 @@ class HelpContactPage extends StatefulWidget {
 
 class _HelpContactPageState extends State<HelpContactPage> {
   int _currentIndex = 0;
+  List<PlatformFile>? selectedFiles;
+
+  void pickFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'docx', 'zip', 'png', 'jpg', 'jpeg', 'xml', 'webp'],
+    );
+
+    if (result == null) return;
+
+    setState(() {
+      selectedFiles = result.files; // Store all selected files in the list
+    });
+
+    // Optionally: Perform additional tasks such as uploading files to a server.
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,17 +105,21 @@ class _HelpContactPageState extends State<HelpContactPage> {
               ),
             ),
             const SizedBox(height: 15),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Upload additional files here",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            GestureDetector(
+              onTap: pickFile, // Trigger the file picker when tapped
+              child: TextField(
+                enabled: false,
+                decoration: InputDecoration(
+                  hintText: "Upload additional files here",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
-              onTap: () {
-                // Implement file upload functionality here.
-              },
             ),
+            const SizedBox(height: 10),
+            if (selectedFiles != null && selectedFiles!.isNotEmpty)
+              ...selectedFiles!.map((file) => Text(file.name)).toList(),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
@@ -171,7 +191,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
             // Navigate to search room
           }
           if (index == 1) {
-            //Navigate to transaction history
+            // Navigate to transaction history
           }
           if (index == 2) {
             Navigator.push(
@@ -182,7 +202,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => HelpContactPageApp()),
             );
           }
           if (index == 4) {
