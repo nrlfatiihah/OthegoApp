@@ -1,21 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const ReviewRatingScreen());
-}
-
-class ReviewRatingScreen extends StatelessWidget {
-  const ReviewRatingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const ReviewRating(),
-    );
-  }
-}
-
 class ReviewRating extends StatefulWidget {
   const ReviewRating({super.key});
 

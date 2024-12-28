@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/admin_viewComplain.dart';
+import 'package:othego_project/screens/review_rating_admin_screen.dart';
+import 'package:othego_project/screens/roomlisting_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,10 +92,37 @@ class DashboardScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                children: const [
-                  InfoCard(title: "Transaction Records", isBold: true),
-                  InfoCard(title: "Customer Complaint", isBold: true),
-                  CustomerAccountsCard(),
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RoomListingScreen()),
+                      );
+                    },
+                    child: const InfoCard(title: "Room Listings", isBold: true),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const InfoCard(
+                        title: "Transaction Records", isBold: true),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AdminViewComplain()),
+                      );
+                    },
+                    child: const InfoCard(
+                        title: "Customer Complaint", isBold: true),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const CustomerAccountsCard(),
+                  ),
                 ],
               ),
             ),
@@ -179,7 +208,12 @@ class CustomerReviewSection extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReviewRating()),
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey[300],
               foregroundColor: Colors.black,
