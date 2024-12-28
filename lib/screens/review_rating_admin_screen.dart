@@ -52,12 +52,7 @@ class _ReviewRatingState extends State<ReviewRating> {
   ];
 
   String filterOption = 'Date';
-
-  void removeReview(int index) {
-    setState(() {
-      reviews.removeAt(index);
-    });
-  }
+  String? selectedMonth;
 
   @override
   Widget build(BuildContext context) {
@@ -75,20 +70,68 @@ class _ReviewRatingState extends State<ReviewRating> {
               onChanged: (value) {
                 setState(() {
                   filterOption = value!;
+                  selectedMonth =
+                      null; // Reset month selection when filter changes.
                 });
               },
-              items: const [
+              items: [
                 DropdownMenuItem(
                   value: 'Date',
                   child: Text('Date'),
+                  onTap: () {
+                    // Additional logic can go here.
+                  },
                 ),
                 DropdownMenuItem(
-                  value: 'Branch',
-                  child: Text('Branch'),
+                  value: 'Month',
+                  child: DropdownButton<String>(
+                    hint: const Text('Month'),
+                    value: selectedMonth,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedMonth = value!;
+                      });
+                    },
+                    items: [
+                      'January',
+                      'February',
+                      'March',
+                      'April',
+                      'May',
+                      'June',
+                      'July',
+                      'August',
+                      'September',
+                      'October',
+                      'November',
+                      'December',
+                    ].map((month) {
+                      return DropdownMenuItem(
+                        value: month,
+                        child: Text(month),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 DropdownMenuItem(
-                  value: 'Rating',
-                  child: Text('Rating'),
+                  value: 'SortRatingAsc',
+                  child: const Text('Sort by Rating (Asc)'),
+                  onTap: () {
+                    setState(() {
+                      reviews
+                          .sort((a, b) => a['rating'].compareTo(b['rating']));
+                    });
+                  },
+                ),
+                DropdownMenuItem(
+                  value: 'SortRatingDesc',
+                  child: const Text('Sort by Rating (Desc)'),
+                  onTap: () {
+                    setState(() {
+                      reviews
+                          .sort((a, b) => b['rating'].compareTo(a['rating']));
+                    });
+                  },
                 ),
               ],
             ),
@@ -101,7 +144,24 @@ class _ReviewRatingState extends State<ReviewRating> {
                 return Card(
                   margin: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    title: Text(review['branch']),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(review['branch']),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailPage(review: review),
+                              ),
+                            );
+                          },
+                          child: const Text('View'),
+                        ),
+                      ],
+                    ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -116,28 +176,7 @@ class _ReviewRatingState extends State<ReviewRating> {
                             ),
                           ),
                         ),
-                        Text('Review: ${review['review']}'),
-                      ],
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailPage(review: review),
-                              ),
-                            );
-                          },
-                          child: const Text('View'),
-                        ),
-                        TextButton(
-                          onPressed: () => removeReview(index),
-                          child: const Text('Remove'),
-                        ),
+                        Text(review['review']),
                       ],
                     ),
                   ),
@@ -152,7 +191,6 @@ class _ReviewRatingState extends State<ReviewRating> {
 }
 
 class DetailPage extends StatelessWidget {
-  //display details and ratings for selected review card
   final Map<String, dynamic> review;
 
   const DetailPage({super.key, required this.review});
