@@ -2,25 +2,6 @@ import 'package:flutter/material.dart';
 import 'update_room_screen_admin.dart';
 import 'add_room_branch_admin_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Room Listing',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: const RoomListingScreen(),
-    );
-  }
-}
-
 class RoomListingScreen extends StatelessWidget {
   //display list of branches
   const RoomListingScreen({super.key});
