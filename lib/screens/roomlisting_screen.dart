@@ -7,14 +7,14 @@ class RoomListingScreen extends StatelessWidget {
   const RoomListingScreen({super.key});
 
   final List<Map<String, String>> branches = const [
-    {"name": "Richmond", "image": "assets/R2.jpg"},
-    {"name": "Batu 4", "image": "assets/B4.3.jpg"},
-    {"name": "Tun Zaidi", "image": "assets/Tun_Zaidi_1.jpg"},
-    {"name": "Matang", "image": "assets/M6.jpg"},
-    {"name": "Batu 9, Kota Padawan", "image": "assets/B9.1.jpg"},
-    {"name": "Batu 7", "image": "assets/B7.1.jpg"},
-    {"name": "Uni-Central Samarahan", "image": "assets/S1.jpg"},
-    {"name": "Chai Yi Building", "image": "assets/CY7.jpg"},
+    {"name": "Richmond", "image": "images/R2.jpg"},
+    {"name": "Batu 4", "image": "images/B4.3.jpg"},
+    {"name": "Tun Zaidi", "image": "images/Tun_Zaidi_1.jpg"},
+    {"name": "Matang", "image": "images/M6.jpg"},
+    {"name": "Batu 9, Kota Padawan", "image": "images/B9.1.jpg"},
+    {"name": "Batu 7", "image": "images/B7.1.jpg"},
+    {"name": "Uni-Central Samarahan", "image": "images/S1.jpg"},
+    {"name": "Chai Yi Building", "image": "images/CY7.jpg"},
   ];
 
   void navigateToAddRoom(BuildContext context) {
