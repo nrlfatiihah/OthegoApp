@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart'; //provides UI components and theming
-import 'package:image_picker/image_picker.dart'; //for capturing and choosing picture from device itself
-import 'dart:io';
+//import 'package:image_picker/image_picker.dart'; //for capturing and choosing picture from device itself
+//import 'dart:io';
 import 'roomlisting_screen.dart'; //navigation purposes
 
 class AddRoomScreen extends StatefulWidget {
@@ -27,7 +27,6 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
   final TextEditingController roomNameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController amenitiesController = TextEditingController();
-  XFile? _pickedImage; // store the images using ImagePicker
   bool isSuccess = false; //indication if room was successfully added
 
   @override
@@ -96,79 +95,6 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                   maxLines: 3,
                 ),
                 const SizedBox(height: 10),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.file_upload, color: Colors.red),
-                              SizedBox(width: 8),
-                              Text('Select File'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () async {
-                        final ImagePicker picker = ImagePicker();
-                        try {
-                          final XFile? image = await picker.pickImage(
-                            source: ImageSource.camera,
-                            maxHeight: 800, // optional: Limit image resolution
-                            maxWidth: 800,
-                          );
-
-                          if (image != null) {
-                            setState(() {
-                              _pickedImage = image; // store the captured image
-                            });
-                          }
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Error opening camera: $e')),
-                          );
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.camera_alt, color: Colors.red),
-                            SizedBox(width: 8),
-                            Text('Open Camera & Take Photo',
-                                style: TextStyle(color: Colors.red)),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (_pickedImage != null) ...[
-                      const SizedBox(height: 10),
-                      Image.file(
-                        File(_pickedImage!.path),
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
-                  ],
-                ),
-                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
