@@ -9,6 +9,7 @@ class Room {
   final int reviewCount;
   final String amenities;
   final String address;
+  final List<String> features;
 
   Room({
     required this.id,
@@ -21,6 +22,7 @@ class Room {
     required this.reviewCount,
     required this.amenities,
     required this.address,
+    required this.features, // Add this to the constructor
   });
 
   factory Room.fromMap(Map<String, dynamic> map) {
@@ -33,8 +35,9 @@ class Room {
       images: map['images'],
       rating: map['rating'],
       reviewCount: map['review_count'],
-      amenities: map['amenities' as String].split(','),
+      amenities: map['amenities'], 
       address: map['address'],
+      features: List<String>.from(map['features']), 
     );
   }
 }
