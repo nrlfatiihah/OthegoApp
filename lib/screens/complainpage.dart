@@ -89,18 +89,6 @@ class _HelpContactPageState extends State<HelpContactPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 15),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Upload additional files here",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              onTap: () {
-                // Implement file upload functionality here.
-              },
-            ),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
