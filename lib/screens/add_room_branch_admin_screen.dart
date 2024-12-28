@@ -37,7 +37,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
         backgroundColor: Colors.red,
         title: const Text('Add New Room'),
         centerTitle: true,
-        actions: [
+        actions: const [
           CircleAvatar(
             //action widget
             backgroundColor: Colors.white,
@@ -106,10 +106,10 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                           border: Border.all(color: Colors.red),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(Icons.file_upload, color: Colors.red),
                               SizedBox(width: 8),
                               Text('Select File'),
@@ -146,9 +146,9 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                           border: Border.all(color: Colors.red),
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(Icons.camera_alt, color: Colors.red),
                             SizedBox(width: 8),
                             Text('Open Camera & Take Photo',
@@ -215,9 +215,9 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                     ),
                   ],
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Icon(Icons.check_circle, color: Colors.red, size: 50),
                     SizedBox(height: 10),
                     Text(

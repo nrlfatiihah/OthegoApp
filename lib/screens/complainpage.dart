@@ -10,11 +10,11 @@ void main() {
 }
 
 class HelpContactPageApp extends StatelessWidget {
-  const HelpContactPageApp({Key? key}) : super(key: key);
+  const HelpContactPageApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HelpContactPage(),
     );
@@ -119,7 +119,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
             ),
             const SizedBox(height: 10),
             if (selectedFiles != null && selectedFiles!.isNotEmpty)
-              ...selectedFiles!.map((file) => Text(file.name)).toList(),
+              ...selectedFiles!.map((file) => Text(file.name)),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
@@ -127,7 +127,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => SuccessPage()),
+                    MaterialPageRoute(builder: (context) => const SuccessPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -202,7 +202,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
             );
           }
           if (index == 4) {
