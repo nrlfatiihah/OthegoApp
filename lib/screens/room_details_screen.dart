@@ -1,132 +1,58 @@
 import 'package:flutter/material.dart';
-import '../models/room.dart';
-import 'package:othego_project/services/database_service.dart';
+import 'package:othego_project/widgets/image_carousel.dart';
+import 'package:othego_project/widgets/room_info.dart';
+import 'package:othego_project/widgets/location_info.dart';
+import 'package:othego_project/widgets/booking_bar.dart';
 
 class RoomDetailsScreen extends StatelessWidget {
   final int roomId;
-
   const RoomDetailsScreen({super.key, required this.roomId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<Room>(
-        future: DatabaseService.getRoomDetails(roomId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-
-          final room = snapshot.data!;
-
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 300,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Stack(
-                    children: [
-                      Image.network(
-                        room.images
-                        ,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                      Positioned(
-                        top: 16,
-                        right: 16,
-                        child: IconButton(
-                          icon: const Icon(Icons.favorite_border),
-                          onPressed: () {},
-                          color: Colors.white,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    const ImageCarousel(),
+                    SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              color: Colors.black,
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.favorite_border),
+                              color: Colors.black,
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        room.name,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          const Icon(Icons.star, color: Colors.amber),
-                          const SizedBox(width: 4),
-                          Text('${room.rating} (${room.reviewCount})'),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          const Icon(Icons.location_on, color: Colors.grey),
-                          const SizedBox(width: 4),
-                          Expanded(child: Text(room.location)),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                      Text(
-                        'Description',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(room.description),
-                      const SizedBox(height: 24),
-                      Text(
-                        'Amenities',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: room.amenities.split(',')
-                            .map((amenities) => Chip(
-                                  label: Text(amenities.trim()),
-                                ))
-                            .toList(),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+                const RoomInfo(),
+                const LocationInfo(),
+                const SizedBox(height: 80), // Space for booking bar
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Transaction History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Contact Us',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          const Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: BookingBar(),
           ),
         ],
       ),

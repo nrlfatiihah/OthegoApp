@@ -33,7 +33,7 @@ class RoomListScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RoomDetailsScreen(roomId: room.id),
+                      builder: (context) => RoomDetailsScreen(roomId: room.id)
                     ),
                   );
                 },
