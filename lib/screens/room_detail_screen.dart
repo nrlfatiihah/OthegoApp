@@ -93,7 +93,7 @@ class RoomDetailsScreen extends StatelessWidget {
                         children: room.amenities
                             .split(',')
                             .map((amenities) => Chip(
-                                  label: Text(amenities.trim()),
+                                  label: Text(amenities),
                                 ))
                             .toList(),
                       ),

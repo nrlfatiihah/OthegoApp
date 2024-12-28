@@ -6,10 +6,10 @@ class RoomCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const RoomCard({
-    Key? key,
+    super.key,
     required this.room,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

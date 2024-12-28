@@ -5,10 +5,10 @@ class AdminViewComplain2 extends StatefulWidget {
   final Function(String) onUpdateStatus;
 
   const AdminViewComplain2({
-    Key? key,
+    super.key,
     required this.complaint,
     required this.onUpdateStatus,
-  }) : super(key: key);
+  });
 
   @override
   _AdminViewComplain2State createState() => _AdminViewComplain2State();

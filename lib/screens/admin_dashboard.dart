@@ -49,30 +49,30 @@ class DashboardScreen extends StatelessWidget {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: [
-              const SidebarItem(
+            children: const [
+              SidebarItem(
                 title: 'Dashboard',
-                destination: const DashboardScreen(),
+                destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Room Listings',
-                destination: const DashboardScreen(),
+                destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Account',
-                destination: const DashboardScreen(),
+                destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Review & Rating',
-                destination: const DashboardScreen(),
+                destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Transaction Records',
-                destination: const DashboardScreen(),
+                destination: DashboardScreen(),
               ),
               SidebarItem(
                 title: 'Customer Complaint',
-                destination: const AdminViewComplain(),
+                destination: AdminViewComplain(),
               ),
             ],
           ),
