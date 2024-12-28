@@ -8,8 +8,9 @@ class ReviewRatingCustomer extends StatefulWidget {
   //super.key allows passing a key to the parent class
 
   @override
-  _ReviewRatingCustomer createState() =>
-      _ReviewRatingCustomer(); //create an instance to hold the state of the widget
+  _ReviewRatingCustomer createState() {
+    return _ReviewRatingCustomer();
+  } //create an instance to hold the state of the widget
 }
 
 class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
@@ -221,8 +222,8 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 12),
                     ),
                     child: const Text(
                       'Submit Your Review',
