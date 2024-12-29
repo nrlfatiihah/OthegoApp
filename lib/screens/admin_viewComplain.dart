@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/admin_dashboard.dart';
 import 'package:othego_project/screens/admin_viewComplain2.dart';
+import 'package:othego_project/screens/customer_account.dart';
+import 'package:othego_project/screens/review_rating_admin_screen.dart';
+import 'package:othego_project/screens/roomlisting_screen.dart';
+import 'package:othego_project/screens/transaction_record.dart';
 
 class AdminViewComplain extends StatefulWidget {
   const AdminViewComplain({super.key});
@@ -78,13 +83,31 @@ class _AdminViewComplainState extends State<AdminViewComplain> {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: const [
-              SidebarItem(title: 'Dashboard'),
-              SidebarItem(title: 'Room Listings'),
-              SidebarItem(title: 'Customer Account'),
-              SidebarItem(title: 'Review & Rating'),
-              SidebarItem(title: 'Transaction Records'),
-              SidebarItem(title: 'Customer Complaint'),
+            children: [
+              const SidebarItem(
+                title: 'Dashboard',
+                destination: DashboardScreen(),
+              ),
+              const SidebarItem(
+                title: 'Room Listings',
+                destination: RoomListingScreen(),
+              ),
+              const SidebarItem(
+                title: 'Customer Account',
+                destination: CustomerAccount(),
+              ),
+              const SidebarItem(
+                title: 'Review & Rating',
+                destination: ReviewRating(),
+              ),
+              SidebarItem(
+                title: 'Transaction Records',
+                destination: TransactionRecordsPage(),
+              ),
+              const SidebarItem(
+                title: 'Customer Complaint',
+                destination: AdminViewComplain(),
+              ),
             ],
           ),
         ),
@@ -176,18 +199,31 @@ class _AdminViewComplainState extends State<AdminViewComplain> {
 
 class SidebarItem extends StatelessWidget {
   final String title;
+  final Widget destination;
 
-  const SidebarItem({super.key, required this.title});
+  const SidebarItem({
+    super.key,
+    required this.title,
+    required this.destination,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 20,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
         ),
       ),
     );

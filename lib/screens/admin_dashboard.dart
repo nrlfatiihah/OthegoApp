@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/admin_viewComplain.dart';
+import 'package:othego_project/screens/customer_account.dart';
 import 'package:othego_project/screens/review_rating_admin_screen.dart';
 import 'package:othego_project/screens/roomlisting_screen.dart';
+import 'package:othego_project/screens/transaction_record.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,28 +53,28 @@ class DashboardScreen extends StatelessWidget {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: const [
-              SidebarItem(
+            children: [
+              const SidebarItem(
                 title: 'Dashboard',
                 destination: DashboardScreen(),
               ),
-              SidebarItem(
+              const SidebarItem(
                 title: 'Room Listings',
-                destination: DashboardScreen(),
+                destination: RoomListingScreen(),
               ),
-              SidebarItem(
+              const SidebarItem(
                 title: 'Customer Account',
-                destination: DashboardScreen(),
+                destination: CustomerAccount(),
               ),
-              SidebarItem(
+              const SidebarItem(
                 title: 'Review & Rating',
-                destination: DashboardScreen(),
+                destination: ReviewRating(),
               ),
               SidebarItem(
                 title: 'Transaction Records',
-                destination: DashboardScreen(),
+                destination: TransactionRecordsPage(),
               ),
-              SidebarItem(
+              const SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),
@@ -104,7 +106,13 @@ class DashboardScreen extends StatelessWidget {
                     child: const InfoCard(title: "Room Listings", isBold: true),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TransactionRecordsPage()),
+                      );
+                    },
                     child: const InfoCard(
                         title: "Transaction Records", isBold: true),
                   ),
@@ -120,7 +128,13 @@ class DashboardScreen extends StatelessWidget {
                         title: "Customer Complaint", isBold: true),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CustomerAccount()),
+                      );
+                    },
                     child: const CustomerAccountsCard(),
                   ),
                 ],
