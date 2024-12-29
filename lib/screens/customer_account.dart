@@ -63,7 +63,7 @@ class _CustomerAccountState extends State<CustomerAccount> {
       drawer: Drawer(
         //SideBar
         child: Container(
-          color: Colors.black, // Background color for sidebar
+          color: Colors.black,
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             children: const [
