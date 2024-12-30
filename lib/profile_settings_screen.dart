@@ -14,14 +14,16 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
-  final SettingsService _settingsService = SettingsService();
+  //final SettingsService _settingsService = SettingsService();
   late ProfileSettings _settings;
-  int _currentIndex = 4; // Profile tab selected
+  int _currentIndex = 4;
 
   @override
   void initState() {
     super.initState();
     _settings = _settingsService.getSettings();
+
+    _loadSettings();
   }
 
   void _updateSettings(ProfileSettings newSettings) {
