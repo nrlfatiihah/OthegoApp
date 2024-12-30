@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings_screen.dart';
 import 'package:othego_project/screens/homepage.dart';
 
-import 'package:flutter/material.dart';
-
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
