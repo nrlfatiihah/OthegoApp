@@ -5,11 +5,12 @@ class RoomCard extends StatelessWidget {
   final String details;
   final String extraInfo;
 
-  RoomCard({
+  const RoomCard({
     required this.title,
     required this.details,
     required this.extraInfo,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +22,20 @@ class RoomCard extends StatelessWidget {
       child: Container(
         width: 300,
         height: 150,
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(details),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               extraInfo,
-              style: TextStyle(color: Colors.green),
+              style: const TextStyle(color: Colors.green),
             ),
           ],
         ),
