@@ -4,12 +4,49 @@ import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
-
-
+//import 'package:http/http.dart' as http;
+//import 'dart:convert';
 
 void main() {
   runApp(const HelpContactPageApp());
 }
+
+//Future<void> _registerUser() async {
+// if (_formSignUpKey.currentState!.validate()) {
+//try {
+//final response = await http.post(
+// Uri.parse('http://10.65.132.21/Othego_mobile/signup.php'),
+//body: jsonEncode({
+//'fullName': _fullNameController.text,
+//'email': _emailController.text,
+// 'password': _passwordController.text,
+// }),
+// );
+
+//if (response.statusCode == 200) {
+// final responseData = jsonDecode(response.body);
+//ScaffoldMessenger.of(context).showSnackBar(
+// SnackBar(content: Text(responseData['message'])),
+// );
+
+//if (responseData['status'] == 'success') {
+// Navigate or clear fields upon successful signup
+// _fullNameController.clear();
+// _emailController.clear();
+//_passwordController.clear();
+//}
+// } else {
+// ScaffoldMessenger.of(context).showSnackBar(
+// const SnackBar(content: Text('Failed to connect to the server')),
+// );
+// }
+//} catch (e) {
+// ScaffoldMessenger.of(context).showSnackBar(
+//  SnackBar(content: Text('Error: $e')),
+// );
+// }
+//  }
+// }
 
 class HelpContactPageApp extends StatelessWidget {
   const HelpContactPageApp({Key? key}) : super(key: key);
@@ -162,7 +199,8 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TransactionHistoryPage()),
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
             );
           }
           if (index == 2) {
@@ -174,7 +212,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-            MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => HelpContactPageApp()),
             );
           }
           if (index == 4) {
