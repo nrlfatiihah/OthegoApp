@@ -1,57 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:othego_project/models/room.dart';
 
 class RoomCard extends StatelessWidget {
-  final Room room;
-  final VoidCallback onTap;
+  final String title;
+  final String details;
+  final String extraInfo;
 
   const RoomCard({
-    super.key,
-    required this.room,
-    required this.onTap,
-  });
+    required this.title,
+    required this.details,
+    required this.extraInfo,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(8.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(15.0),
       ),
-      child: InkWell(
-        onTap: onTap,
+      elevation: 5,
+      child: Container(
+        width: 300,
+        height: 150,
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.network(
-                room.images[0],
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    room.name,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    children: room.features.map((feature) => Chip(
-                      label: Text(feature),
-                      backgroundColor: Colors.red.shade100,
-                      labelStyle: TextStyle(color: Colors.red.shade700),
-                    )).toList(),
-                  ),
-                ],
-              ),
+            const SizedBox(height: 8),
+            Text(details),
+            const SizedBox(height: 8),
+            Text(
+              extraInfo,
+              style: const TextStyle(color: Colors.green),
             ),
           ],
         ),

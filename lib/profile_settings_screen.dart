@@ -15,13 +15,22 @@ class ProfileSettingsScreen extends StatefulWidget {
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   final SettingsService _settingsService = SettingsService();
-  late ProfileSettings _settings;
+  ProfileSettings? _settings; // Nullable until loaded
   int _currentIndex = 4; // Profile tab selected
+  bool _isLoading = true; // Track loading state
 
   @override
   void initState() {
     super.initState();
-    _settings = _settingsService.getSettings();
+    _loadSettings();
+  }
+
+  Future<void> _loadSettings() async {
+    final settings = await _settingsService.getSettings();
+    setState(() {
+      _settings = settings;
+      _isLoading = false; // Loading completed
+    });
   }
 
   void _updateSettings(ProfileSettings newSettings) {
@@ -37,28 +46,34 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: const Text('Profile'),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProfileHeader(
-              imageUrl: _settings.profileImage,
-              onImageChanged: (String newUrl) {
-                _updateSettings(_settings.copyWith(profileImage: newUrl));
-              },
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  ProfileHeader(
+                    imageUrl: _settings?.profileImage ?? '',
+                    onImageChanged: (String newUrl) {
+                      _updateSettings(
+                        _settings!.copyWith(profileImage: newUrl),
+                      );
+                    },
+                  ),
+                  SettingsForm(
+                    settings: _settings!,
+                    onSettingsChanged: _updateSettings,
+                  ),
+                ],
+              ),
             ),
-            SettingsForm(
-              settings: _settings,
-              onSettingsChanged: _updateSettings,
-            ),
-          ],
-        ),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.red, // Active item color

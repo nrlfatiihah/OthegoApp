@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
+import 'package:othego_project/screens/show_room_page.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
 //import 'package:http/http.dart' as http;
@@ -194,7 +195,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           });
 
           if (index == 0) {
-            // Navigate to search room
+            //search page
           }
           if (index == 1) {
             Navigator.push(
