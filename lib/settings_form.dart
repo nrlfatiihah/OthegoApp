@@ -1,81 +1,147 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings.dart';
 
-class SettingsForm extends StatefulWidget {
+class SettingsForm extends StatelessWidget {
   final ProfileSettings settings;
-  final ValueChanged<ProfileSettings> onSettingsChanged;
+  final Function(ProfileSettings) onSettingsChanged;
 
   const SettingsForm({
-    Key? key,
+    super.key,
     required this.settings,
     required this.onSettingsChanged,
-  }) : super(key: key);
-
-  @override
-  State<SettingsForm> createState() => _SettingsFormState();
-}
-
-class _SettingsFormState extends State<SettingsForm> {
-  final _formKey = GlobalKey<FormState>();
-  late TextEditingController _nameController;
-  late TextEditingController _phoneController;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController(text: widget.settings.name);
-    _phoneController = TextEditingController(text: widget.settings.phone);
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    super.dispose();
-  }
-
-  void _saveSettings() {
-    if (_formKey.currentState!.validate()) {
-      widget.onSettingsChanged(
-        widget.settings.copyWith(
-          name: _nameController.text,
-          phone: _phoneController.text,
-        ),
-      );
-    }
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Name', style: TextStyle(fontWeight: FontWeight.bold)),
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(hintText: 'Enter your name'),
-              validator: (value) =>
-                  value == null || value.isEmpty ? 'Name cannot be empty' : null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTextField(
+            'Full Name',
+            settings.name,
+            (value) => onSettingsChanged(settings.copyWith(name: value)),
+          ),
+          const SizedBox(height: 16),
+          _buildTextField(
+            'Email',
+            settings.email,
+            (value) => onSettingsChanged(settings.copyWith(email: value)),
+          ),
+          const SizedBox(height: 16),
+          _buildTextField(
+            'Contact Number',
+            '+1234567890',
+            (value) => {},
+          ),
+          const SizedBox(height: 16),
+          _buildTextField(
+            'Emergency Contact Number',
+            '+1234567890',
+            (value) => {},
+          ),
+          const SizedBox(height: 16),
+          _buildDropdown(),
+          const SizedBox(height: 24),
+          _buildSaveButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(
+      String label, String value, Function(String) onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade300),
             ),
-            const SizedBox(height: 16),
-            const Text('Phone', style: TextStyle(fontWeight: FontWeight.bold)),
-            TextFormField(
-              controller: _phoneController,
-              decoration: const InputDecoration(hintText: 'Enter your phone'),
-              keyboardType: TextInputType.phone,
-              validator: (value) =>
-                  value == null || value.isEmpty ? 'Phone cannot be empty' : null,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade300),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _saveSettings,
-              child: const Text('Save'),
+            filled: true,
+            fillColor: Colors.grey.shade50,
+          ),
+          controller: TextEditingController(text: value),
+          onChanged: onChanged,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDropdown() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Gender',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              border: InputBorder.none,
+              filled: true,
+              fillColor: Colors.grey.shade50,
             ),
-          ],
+            value: 'male',
+            items: const [
+              DropdownMenuItem(value: 'male', child: Text('Male')),
+              DropdownMenuItem(value: 'female', child: Text('Female')),
+              DropdownMenuItem(value: 'other', child: Text('Other')),
+            ],
+            onChanged: (value) {},
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSaveButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: const Text(
+          'Save',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

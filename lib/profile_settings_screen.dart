@@ -15,22 +15,13 @@ class ProfileSettingsScreen extends StatefulWidget {
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   final SettingsService _settingsService = SettingsService();
-  ProfileSettings? _settings; // Nullable until loaded
+  late ProfileSettings _settings;
   int _currentIndex = 4; // Profile tab selected
-  bool _isLoading = true; // Track loading state
 
   @override
   void initState() {
     super.initState();
-    _loadSettings();
-  }
-
-  Future<void> _loadSettings() async {
-    final settings = await _settingsService.getSettings();
-    setState(() {
-      _settings = settings;
-      _isLoading = false; // Loading completed
-    });
+    _settings = _settingsService.getSettings();
   }
 
   void _updateSettings(ProfileSettings newSettings) {
@@ -46,34 +37,28 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () {},
         ),
         title: const Text('Profile'),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  ProfileHeader(
-                    imageUrl: _settings?.profileImage ?? '',
-                    onImageChanged: (String newUrl) {
-                      _updateSettings(
-                        _settings!.copyWith(profileImage: newUrl),
-                      );
-                    },
-                  ),
-                  SettingsForm(
-                    settings: _settings!,
-                    onSettingsChanged: _updateSettings,
-                  ),
-                ],
-              ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ProfileHeader(
+              imageUrl: _settings.profileImage,
+              onImageChanged: (String newUrl) {
+                _updateSettings(_settings.copyWith(profileImage: newUrl));
+              },
             ),
+            SettingsForm(
+              settings: _settings,
+              onSettingsChanged: _updateSettings,
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.red, // Active item color

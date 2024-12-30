@@ -11,11 +11,6 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   int _currentIndex = 4;
-
-  bool _isEditing = false; 
-  final TextEditingController _nameController = TextEditingController(text: 'Kamal Adli');
-  final TextEditingController _phoneController = TextEditingController(text: '+6012-3456789');
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,96 +46,69 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      // Profile Picture
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.grey[200],
-                        child: const Icon(
-                          Icons.person,
-                          color: Colors.black54,
-                          size: 50,
-                        ),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileSettingsScreen()),
+                  );
+                },
+                child: Row(
+                  children: [
+                    // Profile Picture
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Colors.grey[200],
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.black54,
+                        size: 50,
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _isEditing
-                                ? TextFormField(
-                                    controller: _nameController,
-                                    decoration: const InputDecoration(
-                                      labelText: 'Name',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  )
-                                : Text(
-                                    _nameController.text,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                            const SizedBox(height: 8),
-                            _isEditing
-                                ? TextFormField(
-                                    controller: _phoneController,
-                                    decoration: const InputDecoration(
-                                      labelText: 'Phone',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  )
-                                : Text(
-                                    _phoneController.text,
-                                    style: const TextStyle(color: Colors.black54),
-                                  ),
-                          ],
-                        ),
+                    ),
+                    const SizedBox(width: 12),
+                    // User Info
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Kamal Adli',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '+6012-3456789',
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                          SizedBox(height: 8),
+                        ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (_isEditing)
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _isEditing = false; 
-                            });
-                          },
-                          child: const Text('Save'),
-                        ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _isEditing = !_isEditing; 
-                          });
-                        },
-                        child: Text(_isEditing ? 'Cancel' : 'Edit'),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black54,
+                      size: 18,
+                    ),
+                  ],
+                ),
               ),
             ),
 
             // Options List
             Container(
-              margin: const EdgeInsets.all(16), 
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8), 
+              margin: const EdgeInsets.all(16), // Margin around the box
+              padding: const EdgeInsets.symmetric(
+                  vertical: 8), // Padding inside the box
               decoration: BoxDecoration(
-                color: Colors.white, 
-                borderRadius: BorderRadius.circular(12), 
+                color: Colors.white, // White background
+                borderRadius: BorderRadius.circular(12), // Rounded corners
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.2), 
+                    color: Colors.grey.withOpacity(0.2), // Light shadow
                     blurRadius: 8,
                     spreadRadius: 2,
                   ),
@@ -184,17 +152,32 @@ class _ProfileState extends State<Profile> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.red, 
-        unselectedItemColor: Colors.black, 
+        selectedItemColor: Colors.red, // Active item color
+        unselectedItemColor: Colors.black, // Inactive items color
         backgroundColor: Colors.white,
         iconSize: 30.0,
-        currentIndex: _currentIndex, 
+        currentIndex: _currentIndex, // Update the current index dynamically
         onTap: (index) {
           setState(() {
-            _currentIndex = index; 
+            _currentIndex = index; // Update the active index
           });
 
+          if (index == 0) {
+            // Navigate to search room
+          }
+          if (index == 1) {
+            //Navigate to transaction history
+          }
           if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+          if (index == 3) {
+            // Navigate to contact us
+          }
+          if (index == 4) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const Profile()),
@@ -209,6 +192,14 @@ class _ProfileState extends State<Profile> {
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt_long),
             label: 'Transaction History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Contact Us',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -226,7 +217,8 @@ class _ProfileState extends State<Profile> {
         title,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.black54),
+      trailing:
+          const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.black54),
     );
   }
 }

@@ -1,23 +1,31 @@
 class ProfileSettings {
-  final String profileImage;
   final String name;
-  final String phone;
+  final String email;
+  final String profileImage;
+  final bool notificationsEnabled;
+  final bool darkModeEnabled;
 
-  ProfileSettings({
-    required this.profileImage,
+  const ProfileSettings({
     required this.name,
-    required this.phone,
+    required this.email,
+    required this.profileImage,
+    required this.notificationsEnabled,
+    required this.darkModeEnabled,
   });
 
   ProfileSettings copyWith({
-    String? profileImage,
     String? name,
-    String? phone,
+    String? email,
+    String? profileImage,
+    bool? notificationsEnabled,
+    bool? darkModeEnabled,
   }) {
     return ProfileSettings(
-      profileImage: profileImage ?? this.profileImage,
       name: name ?? this.name,
-      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      profileImage: profileImage ?? this.profileImage,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
+      darkModeEnabled: darkModeEnabled ?? this.darkModeEnabled,
     );
   }
 }
