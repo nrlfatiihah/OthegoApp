@@ -2,59 +2,40 @@ import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String imageUrl;
-  final Function(String) onImageChanged;
+  final ValueChanged<String> onImageChanged;
 
   const ProfileHeader({
-    super.key,
+    Key? key,
     required this.imageUrl,
     required this.onImageChanged,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Center(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade300,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 16),
-                      const CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.person_outline, size: 40, color: Colors.black54),
-                      ),
-                      const SizedBox(width: 16),
-                      TextButton(
-                        onPressed: () {
-                          onImageChanged('https://example.com/new-image.jpg');
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        ),
-                        child: const Text(
-                          'Change Photo',
-                          style: TextStyle(color: Colors.black87),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: imageUrl.isNotEmpty
+                ? NetworkImage(imageUrl)
+                : null, // Fallback to an icon if no image
+            child: imageUrl.isEmpty
+                ? const Icon(Icons.person, size: 50, color: Colors.grey)
+                : null,
+          ),
+          const SizedBox(height: 8),
+          TextButton.icon(
+            onPressed: () async {
+              // Handle profile image change logic
+              const newUrl = "https://via.placeholder.com/150"; // Example
+              onImageChanged(newUrl);
+            },
+            icon: const Icon(Icons.edit, size: 16),
+            label: const Text('Change Profile Picture'),
+          ),
+        ],
       ),
     );
   }
