@@ -79,7 +79,6 @@ class _HelpContactPageState extends State<HelpContactPage> {
       }
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,7 +191,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
                 children: [
                   Column(
                     children: [
-                      Icon(Icons.phone, color: Colors.black),
+                    Icon(Icons.phone, color: Colors.black),
                       SizedBox(height: 5),
                       Text("Phone"),
                       Text("111 111 111"),

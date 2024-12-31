@@ -21,15 +21,15 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   @override
   void initState() {
     super.initState();
-    _settings = _settingsService.getSettings();
+   // _settings = _settingsService.getSettings();
 
-    _loadSettings();
+   // _loadSettings();
   }
 
   void _updateSettings(ProfileSettings newSettings) {
     setState(() {
       _settings = newSettings;
-      _settingsService.saveSettings(newSettings);
+      //_settingsService.saveSettings(newSettings);
     });
   }
 

@@ -49,10 +49,10 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                 ),
               ],
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -78,26 +78,23 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                     ),
                   ],
                 ),
-                
-        
                 ListTile(
-                  //leading: ClipRRect(
-                  //borderRadius: BorderRadius.circular(8),
-                  //child: Image.network(
-                  // ' ' add image
-                  //width: ,
-                  //height: ,
-                  //fit: BoxFit.cover,
-                  //),
-//),
-                  title: Text(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      'images/metrocity.jpg', 
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  title: const Text(
                     'Metrocity Matang',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
+                  subtitle: const Text(
                     'RM 350',
                     style: TextStyle(
                       color: Colors.red,
