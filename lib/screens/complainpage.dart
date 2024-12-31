@@ -2,52 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
-import 'package:othego_project/screens/show_room_page.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
-//import 'package:http/http.dart' as http;
-//import 'dart:convert';
+import 'package:othego_project/screens/search_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const HelpContactPageApp());
 }
-
-//Future<void> _registerUser() async {
-// if (_formSignUpKey.currentState!.validate()) {
-//try {
-//final response = await http.post(
-// Uri.parse('http://10.65.132.21/Othego_mobile/signup.php'),
-//body: jsonEncode({
-//'fullName': _fullNameController.text,
-//'email': _emailController.text,
-// 'password': _passwordController.text,
-// }),
-// );
-
-//if (response.statusCode == 200) {
-// final responseData = jsonDecode(response.body);
-//ScaffoldMessenger.of(context).showSnackBar(
-// SnackBar(content: Text(responseData['message'])),
-// );
-
-//if (responseData['status'] == 'success') {
-// Navigate or clear fields upon successful signup
-// _fullNameController.clear();
-// _emailController.clear();
-//_passwordController.clear();
-//}
-// } else {
-// ScaffoldMessenger.of(context).showSnackBar(
-// const SnackBar(content: Text('Failed to connect to the server')),
-// );
-// }
-//} catch (e) {
-// ScaffoldMessenger.of(context).showSnackBar(
-//  SnackBar(content: Text('Error: $e')),
-// );
-// }
-//  }
-// }
 
 class HelpContactPageApp extends StatelessWidget {
   const HelpContactPageApp({Key? key}) : super(key: key);
@@ -56,7 +19,7 @@ class HelpContactPageApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HelpContactPage(),
+      home: const HelpContactPage(),
     );
   }
 }
@@ -69,7 +32,53 @@ class HelpContactPage extends StatefulWidget {
 }
 
 class _HelpContactPageState extends State<HelpContactPage> {
+  final GlobalKey<FormState> _formComplainKey = GlobalKey<FormState>();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _complainController = TextEditingController();
   int _currentIndex = 0;
+
+  Future<void> _submitComplain() async {
+    if (_formComplainKey.currentState!.validate()) {
+      try {
+        final response = await http.post(
+          Uri.parse('http://172.20.10.7/Othego_mobile/complain.php'),
+          body: jsonEncode({
+            'fullName': _fullNameController.text,
+            'email': _emailController.text,
+            'complain': _complainController.text,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          final responseData = jsonDecode(response.body);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(responseData['message'])),
+          );
+
+          if (responseData['status'] == 'success') {
+            _fullNameController.clear();
+            _emailController.clear();
+            _complainController.clear();
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const SuccessPage()),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to connect to the server')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,102 +93,124 @@ class _HelpContactPageState extends State<HelpContactPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "DO U NEED HELP? CONTACT US",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              "If you have any issue with your room, please fill in this form",
-              style: TextStyle(fontSize: 14),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Enter your full name",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        child: Form(
+          key: _formComplainKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "DO U NEED HELP? CONTACT US",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            const SizedBox(height: 15),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Enter your email",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+              const SizedBox(height: 10),
+              const Text(
+                "If you have any issue with your room, please fill in this form",
+                style: TextStyle(fontSize: 14),
               ),
-            ),
-            const SizedBox(height: 15),
-            TextField(
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: "Complain here...",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => SuccessPage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFF4747),
-                  shape: RoundedRectangleBorder(
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _fullNameController,
+                decoration: InputDecoration(
+                  hintText: "Enter your full name",
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
-                  child: Text(
-                    "SUBMIT",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your full name';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 15),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  hintText: "Enter your email",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 15),
+              TextFormField(
+                controller: _complainController,
+                maxLines: 5,
+                decoration: InputDecoration(
+                  hintText: "Complain here...",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your complaint';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _submitComplain,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFF4747),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                    child: Text(
+                      "SUBMIT",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const Spacer(),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Icon(Icons.phone, color: Colors.black),
-                    SizedBox(height: 5),
-                    Text("Phone"),
-                    Text("111 111 111"),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(Icons.email, color: Colors.black),
-                    SizedBox(height: 5),
-                    Text("E-MAIL"),
-                    Text("info@company.com"),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-          ],
+              const Spacer(),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Icon(Icons.phone, color: Colors.black),
+                      SizedBox(height: 5),
+                      Text("Phone"),
+                      Text("111 111 111"),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Icon(Icons.email, color: Colors.black),
+                      SizedBox(height: 5),
+                      Text("E-MAIL"),
+                      Text("info@company.com"),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -193,9 +224,12 @@ class _HelpContactPageState extends State<HelpContactPage> {
           setState(() {
             _currentIndex = index;
           });
-
           if (index == 0) {
-            //search page
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SearchPage()),
+            );
           }
           if (index == 1) {
             Navigator.push(
@@ -222,6 +256,8 @@ class _HelpContactPageState extends State<HelpContactPage> {
               MaterialPageRoute(builder: (context) => const Profile()),
             );
           }
+
+          // Handle navigation
         },
         items: const [
           BottomNavigationBarItem(

@@ -16,6 +16,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+
   Future<void> _registerUser() async {
     if (_formSignUpKey.currentState!.validate()) {
       try {
