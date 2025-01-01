@@ -3,6 +3,7 @@ import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/complainpage.dart';
+import 'package:othego_project/screens/search_page.dart';
 
 class TransactionDetailsPage extends StatefulWidget {
   const TransactionDetailsPage({super.key});
@@ -47,27 +48,27 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
               ),
             ],
           ),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                ListTile(
-                //leading: ClipRRect(
-                //borderRadius: BorderRadius.circular(8),
-                //child: Image.network(
-                //image
-                //width: 100,
-                //height: 100,
-                //fit: BoxFit.cover,
-                //),
-                //),
-                title: Text(
+              ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    'images/metrocity.jpg',
+                    height: 60,
+                    width: 60,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                title: const Text(
                   'Metrocity Matang',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text(
+                subtitle: const Text(
                   'RM 350',
                   style: TextStyle(
                     color: Colors.red,
@@ -76,8 +77,8 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                   ),
                 ),
               ),
-              Divider(),
-              Padding(
+              const Divider(),
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +122,11 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           });
 
           if (index == 0) {
-            // Navigate to search room
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SearchPage()),
+            );
           }
           if (index == 1) {
             Navigator.push(

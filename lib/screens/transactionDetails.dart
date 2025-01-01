@@ -9,7 +9,7 @@ import 'package:othego_project/screens/transaction_record.dart';
 class TransactionDetailsPage extends StatelessWidget {
   final Map<String, String> transaction;
 
-  TransactionDetailsPage({required this.transaction});
+  const TransactionDetailsPage({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -39,20 +39,20 @@ class TransactionDetailsPage extends StatelessWidget {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: [
-              const SidebarItem(
+            children: const [
+              SidebarItem(
                 title: 'Dashboard',
                 destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Room Listings',
                 destination: RoomListingScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Account',
                 destination: CustomerAccount(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Review & Rating',
                 destination: ReviewRating(),
               ),
@@ -60,7 +60,7 @@ class TransactionDetailsPage extends StatelessWidget {
                 title: 'Transaction Records',
                 destination: TransactionRecordsPage(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),
@@ -86,30 +86,30 @@ class TransactionDetailsPage extends StatelessWidget {
                   children: [
                     Text(
                       transaction['name']!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text('Room Details:'),
-                    Text('Branch: Richmond'),
-                    Text('Check-in Date: 16.08.2024'),
+                    const SizedBox(height: 8),
+                    const Text('Room Details:'),
+                    const Text('Branch: Richmond'),
+                    const Text('Check-in Date: 16.08.2024'),
                     Text('Amount: ${transaction['amount']}'),
                     Text(transaction['paymentMethod']!),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           transaction['date']!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
                           decoration: BoxDecoration(
                             color: Colors.green,
@@ -117,7 +117,7 @@ class TransactionDetailsPage extends StatelessWidget {
                           ),
                           child: Text(
                             transaction['status']!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -129,7 +129,7 @@ class TransactionDetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -141,7 +141,7 @@ class TransactionDetailsPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   'Back',
                   style: TextStyle(color: Colors.white),
                 ),

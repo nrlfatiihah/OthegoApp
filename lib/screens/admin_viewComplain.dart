@@ -83,20 +83,20 @@ class _AdminViewComplainState extends State<AdminViewComplain> {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: [
-              const SidebarItem(
+            children: const [
+              SidebarItem(
                 title: 'Dashboard',
                 destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Room Listings',
                 destination: RoomListingScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Account',
                 destination: CustomerAccount(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Review & Rating',
                 destination: ReviewRating(),
               ),
@@ -104,7 +104,7 @@ class _AdminViewComplainState extends State<AdminViewComplain> {
                 title: 'Transaction Records',
                 destination: TransactionRecordsPage(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),

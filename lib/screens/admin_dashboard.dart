@@ -41,20 +41,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: [
-              const SidebarItem(
+            children: const [
+              SidebarItem(
                 title: 'Dashboard',
                 destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Room Listings',
                 destination: RoomListingScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Account',
                 destination: CustomerAccount(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Review & Rating',
                 destination: ReviewRating(),
               ),
@@ -62,7 +62,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 title: 'Transaction Records',
                 destination: TransactionRecordsPage(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),
@@ -88,7 +88,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RoomListingScreen()),
+                            builder: (context) => const RoomListingScreen()),
                       );
                     },
                     child: const InfoCard(title: "Room Listings", isBold: true),
@@ -98,7 +98,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TransactionRecordsPage()),
+                            builder: (context) => const TransactionRecordsPage()),
                       );
                     },
                     child: const InfoCard(
@@ -109,7 +109,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AdminViewComplain()),
+                            builder: (context) => const AdminViewComplain()),
                       );
                     },
                     child: const InfoCard(
@@ -120,7 +120,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CustomerAccount()),
+                            builder: (context) => const CustomerAccount()),
                       );
                     },
                     child: const CustomerAccountsCard(),
@@ -213,7 +213,7 @@ class CustomerReviewSection extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReviewRating()),
+                MaterialPageRoute(builder: (context) => const ReviewRating()),
               );
             },
             style: ElevatedButton.styleFrom(

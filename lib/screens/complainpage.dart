@@ -13,13 +13,13 @@ void main() {
 }
 
 class HelpContactPageApp extends StatelessWidget {
-  const HelpContactPageApp({Key? key}) : super(key: key);
+  const HelpContactPageApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HelpContactPage(),
+      home: HelpContactPage(),
     );
   }
 }
@@ -246,7 +246,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
             );
           }
           if (index == 4) {
