@@ -1,39 +1,47 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
-error_reporting(0);
 
 include 'conn.php';
 
-// Get JSON input
-$input = file_get_contents("php://input");
-$data = json_decode($input, true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $email = $input['email'];
+    $password = $input['password'];
 
-if (!isset($data['email']) || !isset($data['password'])) {
-    echo json_encode(["status" => "error", "message" => "Invalid input"]);
-    exit;
-}
+    $stmt = $conn->prepare("SELECT * FROM user WHERE userEmail = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-$email = $data['email'];
-$password = $data['password'];
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
 
-// Check email and password in database
-$sql = "SELECT password FROM users WHERE email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
+        if (password_verify($password, $user['password'])) {
+            // Determine user type based on email domain
+            $userType = strpos($email, '@thego.com') !== false ? 'admin' : 'tenant';
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    if (password_verify($password, $row['password'])) {
-        echo json_encode(["status" => "success", "message" => "Login successful"]);
+            echo json_encode([
+                "status" => "success",
+                "message" => "Login successful",
+                "user" => [
+                    "id" => $user['userID'],
+                    "name" => $user['userName'],
+                    "email" => $user['userEmail'],
+                    "type" => $userType
+                ]
+            ]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Invalid password"]);
+        }
     } else {
-        echo json_encode(["status" => "error", "message" => "Incorrect password"]);
+        echo json_encode(["status" => "error", "message" => "User not found"]);
     }
+
+    $stmt->close();
 } else {
-    echo json_encode(["status" => "error", "message" => "User not found"]);
+    echo json_encode(["status" => "error", "message" => "Invalid request method"]);
 }
 
-$stmt->close();
 $conn->close();
 ?>

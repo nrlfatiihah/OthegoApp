@@ -2,6 +2,8 @@ import 'package:flutter/material.dart'; //provides UI components and theming
 //import 'package:image_picker/image_picker.dart'; //for capturing and choosing picture from device itself
 //import 'dart:io';
 import 'roomlisting_screen.dart'; //navigation purposes
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AddRoomScreen extends StatefulWidget {
   //allows user to add details of new room
@@ -96,24 +98,67 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      isSuccess = true;
-                    });
-                    Future.delayed(const Duration(seconds: 2), () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RoomListingScreen(),
-                        ),
+                  onPressed: () async {
+                    if (roomNameController.text.isEmpty ||
+                        selectedLocation == null ||
+                        priceController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Please fill all required fields!')),
                       );
-                    });
+                      return;
+                    }
+
+                    try {
+                      final response = await http.post(
+                        Uri.parse(
+                            'http://10.65.133.78/Othego_mobile/add_room.php'), // Update with your server URL
+                        body: {
+                          'roomName': roomNameController.text,
+                          'roomLoc': selectedLocation,
+                          'roomPrice': priceController.text,
+                          'roomDesc': amenitiesController.text,
+                          'roomAvailability':
+                              '1', // Assuming '1' means available
+                        },
+                      );
+
+                      if (response.statusCode == 200) {
+                        final result = jsonDecode(response.body);
+                        if (result['status'] == 'success') {
+                          setState(() {
+                            isSuccess = true;
+                          });
+                          Future.delayed(const Duration(seconds: 2), () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RoomListingScreen()),
+                            );
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('Error: ${result['message']}')),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Failed to connect to the server')),
+                        );
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: $e')),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red, // Button background color
-                    foregroundColor: Colors.white, // Text color
-                    minimumSize:
-                        const Size.fromHeight(50), // Optional: Adjust size
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size.fromHeight(50),
                   ),
                   child: const Text('Save'),
                 ),

@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:othego_project/screens/homepage.dart';
+import 'package:http/http.dart' as http;
+import 'package:othego_project/screens/admin_dashboard.dart';
 import 'package:othego_project/widgets/custom_scaffold.dart';
+
+import 'homepage.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -11,7 +15,55 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _formSignInKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
   bool rememberPassword = true;
+
+  void _login() async {
+    const url =
+        'http://10.65.133.78/Othego_mobile/signin.php'; // Replace with your PHP server URL
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({'email': email, 'password': password}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data['status'] == 'success') {
+          final userEmail = data['user']['email'];
+
+          if (userEmail.endsWith('@othego.com')) {
+            // Navigate to Admin Dashboard
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const DashboardScreen()),
+            );
+          } else {
+            // Navigate to Tenant Dashboard
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(data['message'])),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Server error: ${response.statusCode}')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to connect to server')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +98,9 @@ class _SignInState extends State<SignIn> {
                             fontWeight: FontWeight.w900,
                             color: Color(0xFFFF0B0B)),
                       ),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
+                      const SizedBox(height: 25.0),
                       TextFormField(
+                        onChanged: (value) => email = value,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
@@ -59,29 +110,15 @@ class _SignInState extends State<SignIn> {
                         decoration: InputDecoration(
                           label: const Text('Email'),
                           hintText: 'Enter Email',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
-                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
+                      const SizedBox(height: 25.0),
                       TextFormField(
                         obscureText: true,
-                        obscuringCharacter: '*',
+                        onChanged: (value) => password = value,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
@@ -91,26 +128,12 @@ class _SignInState extends State<SignIn> {
                         decoration: InputDecoration(
                           label: const Text('Password'),
                           hintText: 'Enter Password',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
-                            ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
+                      const SizedBox(height: 25.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -127,15 +150,13 @@ class _SignInState extends State<SignIn> {
                               ),
                               const Text(
                                 'Remember Me',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                ),
+                                style: TextStyle(color: Colors.black45),
                               ),
                             ],
                           ),
                           GestureDetector(
                             child: const Text(
-                              'Forget Password',
+                              'Forgot Password?',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue,
@@ -150,11 +171,7 @@ class _SignInState extends State<SignIn> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formSignInKey.currentState!.validate()) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Homepage()),
-                              );
+                              _login();
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -166,10 +183,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           child: const Text(
                             "Sign In",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.red,
-                            ),
+                            style: TextStyle(fontSize: 18, color: Colors.red),
                           ),
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings_screen.dart';
 import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/welcome_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -138,7 +139,11 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 onPressed: () {
-                  // Handle logout
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WelcomePage()),
+                  );
                 },
                 icon: const Icon(Icons.logout),
                 label: const Text(

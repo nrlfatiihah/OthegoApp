@@ -16,12 +16,11 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
   Future<void> _registerUser() async {
     if (_formSignUpKey.currentState!.validate()) {
       try {
         final response = await http.post(
-          Uri.parse('http://10.65.132.21/Othego_mobile/signup.php'),
+          Uri.parse('http://10.65.133.78/Othego_mobile/signup.php'),
           body: jsonEncode({
             'fullName': _fullNameController.text,
             'email': _emailController.text,
