@@ -3,6 +3,7 @@ import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/transactionhistory2.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/complainpage.dart';
+import 'package:othego_project/screens/search_page.dart';
 
 class TransactionHistoryPage extends StatefulWidget {
   const TransactionHistoryPage({super.key});
@@ -121,7 +122,11 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           });
 
           if (index == 0) {
-            // Navigate to search room
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SearchPage()),
+            );
           }
           if (index == 1) {
             Navigator.push(
