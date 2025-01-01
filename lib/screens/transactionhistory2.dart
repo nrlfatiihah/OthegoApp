@@ -122,16 +122,16 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           });
 
           if (index == 0) {
-             Navigator.push(
+            Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const SearchPage()),
+              MaterialPageRoute(builder: (context) => const SearchPage()),
             );
           }
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TransactionHistoryPage()),
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
             );
           }
           if (index == 2) {
@@ -143,7 +143,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
             );
           }
           if (index == 4) {

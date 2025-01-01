@@ -8,22 +8,6 @@ import 'package:othego_project/screens/search_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void main() {
-  runApp(const HelpContactPageApp());
-}
-
-class HelpContactPageApp extends StatelessWidget {
-  const HelpContactPageApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HelpContactPage(),
-    );
-  }
-}
-
 class HelpContactPage extends StatefulWidget {
   const HelpContactPage({super.key});
 
@@ -79,6 +63,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,7 +176,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
                 children: [
                   Column(
                     children: [
-                    Icon(Icons.phone, color: Colors.black),
+                      Icon(Icons.phone, color: Colors.black),
                       SizedBox(height: 5),
                       Text("Phone"),
                       Text("111 111 111"),
@@ -224,10 +209,9 @@ class _HelpContactPageState extends State<HelpContactPage> {
             _currentIndex = index;
           });
           if (index == 0) {
-             Navigator.push(
+            Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const SearchPage()),
+              MaterialPageRoute(builder: (context) => const SearchPage()),
             );
           }
           if (index == 1) {
@@ -246,7 +230,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
             );
           }
           if (index == 4) {

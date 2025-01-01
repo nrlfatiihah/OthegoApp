@@ -58,7 +58,8 @@ class _ShowRoomPageState extends State<ShowRoomPage> {
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TransactionHistoryPage()),
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
             );
           }
           if (index == 2) {
@@ -70,7 +71,7 @@ class _ShowRoomPageState extends State<ShowRoomPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
             );
           }
           if (index == 4) {

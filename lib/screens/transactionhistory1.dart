@@ -35,7 +35,8 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
             // Navigate to Transaction Details Page
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TransactionDetailsPage()),
+              MaterialPageRoute(
+                  builder: (context) => const TransactionDetailsPage()),
             );
           },
           child: Container(
@@ -83,7 +84,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
-                      'images/metrocity.jpg', 
+                      'images/metrocity.jpg',
                       height: 100,
                       fit: BoxFit.cover,
                     ),
@@ -122,16 +123,16 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           });
 
           if (index == 0) {
-             Navigator.push(
+            Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const SearchPage()),
+              MaterialPageRoute(builder: (context) => const SearchPage()),
             );
           }
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TransactionHistoryPage()),
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
             );
           }
           if (index == 2) {
@@ -143,7 +144,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           if (index == 3) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
             );
           }
           if (index == 4) {

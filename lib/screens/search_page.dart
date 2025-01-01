@@ -35,7 +35,8 @@ class _SearchPageState extends State<SearchPage> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TransactionHistoryPage()),
+          MaterialPageRoute(
+              builder: (context) => const TransactionHistoryPage()),
         );
         break;
       case 2:
@@ -47,7 +48,7 @@ class _SearchPageState extends State<SearchPage> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HelpContactPageApp()),
+          MaterialPageRoute(builder: (context) => const HelpContactPage()),
         );
         break;
       case 4:
