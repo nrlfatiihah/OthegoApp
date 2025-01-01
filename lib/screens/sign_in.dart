@@ -60,7 +60,7 @@ class _SignInState extends State<SignIn> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to connect to server')),
+        const SnackBar(content: Text('Failed to connect to server')),
       );
     }
   }

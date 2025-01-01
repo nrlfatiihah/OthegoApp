@@ -34,7 +34,7 @@ class ProfileHeader extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 TextButton(
                   onPressed: () {
                     // Implement image change functionality
