@@ -32,12 +32,11 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile Settings'),
-        backgroundColor: const Color(0xFFFDECEC), // Light pink color
+        title: const Text('Profile'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Navigate back to profile
+            Navigator.pop(context); // Navigate back to the homepage
           },
         ),
       ),
