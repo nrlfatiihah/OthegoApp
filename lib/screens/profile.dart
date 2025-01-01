@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings_screen.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/welcome_page.dart';
+import 'package:othego_project/profile_settings.dart'; // ProfileSettings model
+import 'package:othego_project/settings_service.dart'; // SettingsService for managing profile data
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -12,6 +14,32 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   int _currentIndex = 4;
+  ProfileSettings? _currentSettings; // Holds the current profile settings
+  late SettingsService _settingsService;
+
+  @override
+  void initState() {
+    super.initState();
+    _settingsService = SettingsService();
+    _loadSettings();
+  }
+
+  // Load current settings from the service
+  Future<void> _loadSettings() async {
+    // Fetch settings (This could come from a local database or API)
+    ProfileSettings settings = await _settingsService.getSettings();
+    setState(() {
+      _currentSettings = settings;
+    });
+  }
+
+  // Update the settings with new values after edit
+  void _onSettingsUpdated(ProfileSettings updatedSettings) {
+    setState(() {
+      _currentSettings = updatedSettings;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +77,17 @@ class _ProfileState extends State<Profile> {
               ),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileSettingsScreen()),
-                  );
+                  if (_currentSettings != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileSettingsScreen(
+                          currentSettings: _currentSettings!,
+                          onSettingsUpdated: _onSettingsUpdated,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 child: Row(
                   children: [
@@ -61,31 +95,36 @@ class _ProfileState extends State<Profile> {
                     CircleAvatar(
                       radius: 40,
                       backgroundColor: Colors.grey[200],
-                      child: const Icon(
-                        Icons.person,
-                        color: Colors.black54,
-                        size: 50,
-                      ),
+                      backgroundImage: _currentSettings?.profileImage != null
+                          ? NetworkImage(_currentSettings!.profileImage)
+                          : null,
+                      child: _currentSettings?.profileImage == null
+                          ? const Icon(
+                              Icons.person,
+                              color: Colors.black54,
+                              size: 50,
+                            )
+                          : null,
                     ),
                     const SizedBox(width: 12),
                     // User Info
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Kamal Adli',
-                            style: TextStyle(
+                            _currentSettings?.name ?? 'Loading...',
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
-                            '+6012-3456789',
-                            style: TextStyle(color: Colors.black54),
+                            _currentSettings?.contactNumber ?? 'Loading...',
+                            style: const TextStyle(color: Colors.black54),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                         ],
                       ),
                     ),
@@ -99,59 +138,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
 
-            // Options List
-            Container(
-              margin: const EdgeInsets.all(16), // Margin around the box
-              padding: const EdgeInsets.symmetric(
-                  vertical: 8), // Padding inside the box
-              decoration: BoxDecoration(
-                color: Colors.white, // White background
-                borderRadius: BorderRadius.circular(12), // Rounded corners
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2), // Light shadow
-                    blurRadius: 8,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  buildOptionTile(Icons.history, 'Rental application history'),
-                  buildOptionTile(Icons.receipt_long, 'Transaction history'),
-                  buildOptionTile(Icons.support_agent, 'Contact Us'),
-                  buildOptionTile(Icons.settings, 'Setting'),
-                  buildOptionTile(Icons.description, 'Terms and conditions'),
-                ],
-              ),
-            ),
-
-            // Log Out Button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WelcomePage()),
-                  );
-                },
-                icon: const Icon(Icons.logout),
-                label: const Text(
-                  'Log out account',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
+            // Other sections...
           ],
         ),
       ),
@@ -161,31 +148,15 @@ class _ProfileState extends State<Profile> {
         unselectedItemColor: Colors.black, // Inactive items color
         backgroundColor: Colors.white,
         iconSize: 30.0,
-        currentIndex: _currentIndex, // Update the current index dynamically
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index; // Update the active index
           });
-
-          if (index == 0) {
-            // Navigate to search room
-          }
-          if (index == 1) {
-            //Navigate to transaction history
-          }
           if (index == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const Homepage()),
-            );
-          }
-          if (index == 3) {
-            // Navigate to contact us
-          }
-          if (index == 4) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Profile()),
             );
           }
         },
