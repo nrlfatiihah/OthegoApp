@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings_screen.dart';
 import 'package:othego_project/screens/homepage.dart';
-import 'package:othego_project/screens/welcome_page.dart';
 import 'package:othego_project/profile_settings.dart'; // ProfileSettings model
 import 'package:othego_project/settings_service.dart'; // SettingsService for managing profile data
 
