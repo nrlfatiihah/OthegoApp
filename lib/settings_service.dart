@@ -3,6 +3,7 @@ import 'package:othego_project/profile_settings.dart';
 class SettingsService {
   ProfileSettings getSettings() {
     return ProfileSettings(
+      userID: 'unique-user-id', // Provide the required userID
       name: 'John Doe',
       email: 'john.doe@example.com',
       contactNumber: '1234567890',
