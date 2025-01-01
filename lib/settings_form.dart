@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings.dart';
 
-class SettingsForm extends StatelessWidget {
+class SettingsForm extends StatefulWidget {
   final ProfileSettings settings;
   final Function(ProfileSettings) onSettingsChanged;
 
@@ -12,138 +12,143 @@ class SettingsForm extends StatelessWidget {
   });
 
   @override
+  State<SettingsForm> createState() => _SettingsFormState();
+}
+
+class _SettingsFormState extends State<SettingsForm> {
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _contactController;
+  late TextEditingController _emergencyContactController;
+  late String _selectedGender;
+  late bool _notificationsEnabled;
+  late bool _darkModeEnabled;
+
+  final List<String> _genders = ['Male', 'Female', 'Other'];
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.settings.name);
+    _emailController = TextEditingController(text: widget.settings.email);
+    _contactController = TextEditingController(text: widget.settings.contactNumber);
+    _emergencyContactController =
+        TextEditingController(text: widget.settings.emergencyContact);
+    _selectedGender = widget.settings.gender;
+    _notificationsEnabled = widget.settings.notificationsEnabled;
+    _darkModeEnabled = widget.settings.darkModeEnabled;
+  }
+
+  void _saveSettings() {
+    final updatedSettings = widget.settings.copyWith(
+      name: _nameController.text,
+      email: _emailController.text,
+      contactNumber: _contactController.text,
+      emergencyContact: _emergencyContactController.text,
+      gender: _selectedGender,
+      notificationsEnabled: _notificationsEnabled,
+      darkModeEnabled: _darkModeEnabled,
+    );
+    widget.onSettingsChanged(updatedSettings);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Settings saved!')),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildTextField(
-            'Full Name',
-            settings.name,
-            (value) => onSettingsChanged(settings.copyWith(name: value)),
-          ),
-          const SizedBox(height: 16),
-          _buildTextField(
-            'Email',
-            settings.email,
-            (value) => onSettingsChanged(settings.copyWith(email: value)),
-          ),
-          const SizedBox(height: 16),
-          _buildTextField(
-            'Contact Number',
-            '+1234567890',
-            (value) => {},
-          ),
-          const SizedBox(height: 16),
-          _buildTextField(
-            'Emergency Contact Number',
-            '+1234567890',
-            (value) => {},
-          ),
-          const SizedBox(height: 16),
-          _buildDropdown(),
-          const SizedBox(height: 24),
-          _buildSaveButton(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildTextField('Full Name', _nameController),
+            const SizedBox(height: 16),
+            _buildTextField('Email', _emailController),
+            const SizedBox(height: 16),
+            _buildTextField('Contact Number', _contactController),
+            const SizedBox(height: 16),
+            _buildTextField('Emergency Contact', _emergencyContactController),
+            const SizedBox(height: 16),
+            _buildGenderDropdown(),
+            const SizedBox(height: 16),
+            _buildSwitch(
+              'Enable Notifications',
+              _notificationsEnabled,
+              (value) => setState(() => _notificationsEnabled = value),
+            ),
+            const SizedBox(height: 16),
+            _buildSwitch(
+              'Enable Dark Mode',
+              _darkModeEnabled,
+              (value) => setState(() => _darkModeEnabled = value),
+            ),
+            const SizedBox(height: 24),
+            _buildSaveButton(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildTextField(
-      String label, String value, Function(String) onChanged) {
+  Widget _buildTextField(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text(label),
         const SizedBox(height: 8),
         TextField(
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey.shade300),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey.shade300),
-            ),
-            filled: true,
-            fillColor: Colors.grey.shade50,
-          ),
-          controller: TextEditingController(text: value),
-          onChanged: onChanged,
+          controller: controller,
         ),
       ],
     );
   }
 
-  Widget _buildDropdown() {
+  Widget _buildGenderDropdown() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Gender',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        const Text('Gender'),
         const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              border: InputBorder.none,
-              filled: true,
-              fillColor: Colors.grey.shade50,
-            ),
-            value: 'male',
-            items: const [
-              DropdownMenuItem(value: 'male', child: Text('Male')),
-              DropdownMenuItem(value: 'female', child: Text('Female')),
-              DropdownMenuItem(value: 'other', child: Text('Other')),
-            ],
-            onChanged: (value) {},
-          ),
+        DropdownButtonFormField<String>(
+          value: _selectedGender,
+          items: _genders
+              .map((gender) => DropdownMenuItem(
+                    value: gender,
+                    child: Text(gender),
+                  ))
+              .toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedGender = value!;
+            });
+          },
         ),
       ],
+    );
+  }
+
+  Widget _buildSwitch(String label, bool value, Function(bool) onChanged) {
+    return SwitchListTile(
+      title: Text(label),
+      value: value,
+      onChanged: onChanged,
     );
   }
 
   Widget _buildSaveButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        child: const Text(
-          'Save',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+    return ElevatedButton(
+      onPressed: _saveSettings,
+      child: const Text('Save'),
     );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _contactController.dispose();
+    _emergencyContactController.dispose();
+    super.dispose();
   }
 }

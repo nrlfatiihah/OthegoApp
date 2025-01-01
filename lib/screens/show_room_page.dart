@@ -6,7 +6,7 @@ import 'package:othego_project/screens/transactionhistory1.dart';
 import 'package:othego_project/screens/complainpage.dart';
 
 class ShowRoomPage extends StatefulWidget {
-  const ShowRoomPage({Key? key}) : super(key: key);
+  const ShowRoomPage({super.key});
 
   @override
   _ShowRoomPageState createState() => _ShowRoomPageState();

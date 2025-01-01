@@ -7,6 +7,8 @@ import 'package:othego_project/screens/roomlisting_screen.dart';
 import 'package:othego_project/screens/transactionDetails.dart';
 
 class TransactionRecordsPage extends StatefulWidget {
+  const TransactionRecordsPage({super.key});
+
   @override
   _TransactionRecordsPageState createState() => _TransactionRecordsPageState();
 }
@@ -118,20 +120,20 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
           color: Colors.black, // Background color for sidebar
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            children: [
-              const SidebarItem(
+            children: const [
+              SidebarItem(
                 title: 'Dashboard',
                 destination: DashboardScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Room Listings',
                 destination: RoomListingScreen(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Account',
                 destination: CustomerAccount(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Review & Rating',
                 destination: ReviewRating(),
               ),
@@ -139,7 +141,7 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                 title: 'Transaction Records',
                 destination: TransactionRecordsPage(),
               ),
-              const SidebarItem(
+              SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),
@@ -159,7 +161,7 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search your records',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -178,9 +180,9 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                       },
                     ),
                   ),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   IconButton(
-                    icon: Icon(Icons.filter_alt, color: Colors.black),
+                    icon: const Icon(Icons.filter_alt, color: Colors.black),
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
@@ -217,10 +219,10 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(transaction['date']!,
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 4),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 4.0),
                               decoration: BoxDecoration(
                                 color: Colors.green,
@@ -228,7 +230,7 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                               ),
                               child: Text(
                                 transaction['status']!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -265,7 +267,7 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Filter by months:',
+          const Text('Filter by months:',
               style: TextStyle(fontWeight: FontWeight.bold)),
           Wrap(
             children: List.generate(12, (index) {
@@ -285,8 +287,8 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
               );
             }),
           ),
-          SizedBox(height: 16),
-          Text('Filter by payment method:',
+          const SizedBox(height: 16),
+          const Text('Filter by payment method:',
               style: TextStyle(fontWeight: FontWeight.bold)),
           Wrap(
             children: [
@@ -311,8 +313,8 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                     ))
                 .toList(),
           ),
-          SizedBox(height: 16),
-          Text('Filter by status:',
+          const SizedBox(height: 16),
+          const Text('Filter by status:',
               style: TextStyle(fontWeight: FontWeight.bold)),
           Row(
             children: ['Paid', 'Pending', 'Unpaid']
@@ -330,20 +332,20 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                     ))
                 .toList(),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
                 onPressed: resetFilters,
-                child: Text('Reset'),
+                child: const Text('Reset'),
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                   applyFilters();
                 },
-                child: Text('Apply'),
+                child: const Text('Apply'),
               ),
             ],
           ),

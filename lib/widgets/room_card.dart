@@ -9,8 +9,8 @@ class RoomCard extends StatelessWidget {
     required this.title,
     required this.details,
     required this.extraInfo,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

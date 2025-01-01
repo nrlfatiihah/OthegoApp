@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String imageUrl;
-  final Function(String) onImageChanged;
+  final ValueChanged<String> onImageChanged;
 
   const ProfileHeader({
     super.key,
@@ -13,50 +13,41 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Center(
-        child: Column(
-          children: [
-            Stack(
+      color: const Color(0xFFFDECEC), // Light pink background to match profile.dart
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 40,
+            backgroundImage: NetworkImage(imageUrl),
+            backgroundColor: Colors.grey[200],
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade300,
-                    borderRadius: BorderRadius.circular(12),
+                const Text(
+                  'Profile Picture',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 16),
-                      const CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.person_outline,
-                            size: 40, color: Colors.black54),
-                      ),
-                      const SizedBox(width: 16),
-                      TextButton(
-                        onPressed: () {
-                          onImageChanged('https://example.com/new-image.jpg');
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
-                        ),
-                        child: const Text(
-                          'Change Photo',
-                          style: TextStyle(color: Colors.black87),
-                        ),
-                      ),
-                    ],
+                ),
+                SizedBox(height: 8),
+                TextButton(
+                  onPressed: () {
+                    // Implement image change functionality
+                  },
+                  child: const Text(
+                    'Change Picture',
+                    style: TextStyle(color: Colors.black54),
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
