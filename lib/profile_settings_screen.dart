@@ -1,19 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:othego_project/profile_header.dart';
-import 'package:othego_project/profile_settings.dart';
-import 'package:othego_project/settings_form.dart';
-import 'package:othego_project/settings_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class UserProfile {
+  final int userID;
+  final String name;
+  final String phoneNumber;
+  final String email;
+  final String emergencyPhoneNumber;
+  final String gender;
+
+  UserProfile({
+    required this.userID,
+    required this.name,
+    required this.phoneNumber,
+    required this.email,
+    required this.emergencyPhoneNumber,
+    required this.gender,
+  });
+
+  UserProfile copyWith({
+    int? userID,
+    String? name,
+    String? phoneNumber,
+    String? email,
+    String? emergencyPhoneNumber,
+    String? gender,
+  }) {
+    return UserProfile(
+      userID: userID ?? this.userID,
+      name: name ?? this.name,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      emergencyPhoneNumber: emergencyPhoneNumber ?? this.emergencyPhoneNumber,
+      gender: gender ?? this.gender,
+    );
+  }
+}
+
 class ProfileSettingsScreen extends StatefulWidget {
-  final ProfileSettings currentSettings;
-  final Function(ProfileSettings) onSettingsUpdated;
+  final UserProfile userProfile;
+  final Function(UserProfile) onProfileUpdated;
 
   const ProfileSettingsScreen({
     super.key,
-    required this.currentSettings,
-    required this.onSettingsUpdated,
+    required this.userProfile,
+    required this.onProfileUpdated,
   });
 
   @override
@@ -21,109 +53,188 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
+  late TextEditingController _phoneController;
+  late TextEditingController _emergencyphoneController;
   late TextEditingController _emailController;
-  late TextEditingController _contactController;
+  String _selectedGender = "Select gender";
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.currentSettings.name);
-    _emailController = TextEditingController(text: widget.currentSettings.email);
-    _contactController = TextEditingController(text: widget.currentSettings.contactNumber);
+    _nameController = TextEditingController(text: widget.userProfile.name);
+    _phoneController =
+        TextEditingController(text: widget.userProfile.phoneNumber);
+    _emailController =
+        TextEditingController(); // Initialize with an empty string or pre-filled value
+    _emergencyphoneController =
+        TextEditingController(); // Initialize with an empty string or pre-filled value
   }
 
-  Future<void> _saveProfile() async {
-    if (_formKey.currentState!.validate()) {
-      final response = await http.post(
-        Uri.parse('http://192.168.0.180/Othego_mobile/profile.php'),
-        body: jsonEncode({
-          'userID': widget.currentSettings.userID, // Send userID for reference
-          'name': _nameController.text,
-          'email': _emailController.text,
-          'contactNumber': _contactController.text,
-        }),
-      );
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _emergencyphoneController.dispose();
+    super.dispose();
+  }
 
+  Future<void> _updateProfile() async {
+    final url =
+        Uri.parse('http://192.168.0.134/Othego_mobile/update_profile.php');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'userID': widget.userProfile.userID,
+        'userName': _nameController.text,
+        'userEmail': _emailController.text,
+        'userphoneNo': _phoneController.text, // Corrected key
+        'userEmerphoneNo': _emergencyphoneController.text, // Corrected key
+        'userGender': _selectedGender, // Corrected key
+      }),
+    );
+
+    if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
-      if (response.statusCode == 200 && responseData['status'] == 'success') {
-        widget.onSettingsUpdated(ProfileSettings(
-          userID: widget.currentSettings.userID, // Keep the userID unchanged
+      if (responseData['success']) {
+        final updatedProfile = widget.userProfile.copyWith(
           name: _nameController.text,
+          phoneNumber: _phoneController.text,
           email: _emailController.text,
-          contactNumber: _contactController.text,
-          emergencyContact: widget.currentSettings.emergencyContact,
-          gender: widget.currentSettings.gender,
-          profileImage: widget.currentSettings.profileImage,
-          notificationsEnabled: widget.currentSettings.notificationsEnabled,
-          darkModeEnabled: widget.currentSettings.darkModeEnabled,
-        ));
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(responseData['message'])));
+          emergencyPhoneNumber: _emergencyphoneController.text,
+          gender: _selectedGender,
+        );
+        widget.onProfileUpdated(updatedProfile);
+        Navigator.pop(context);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: ${responseData['message']}')));
+        print('Failed to update profile: ${responseData['message']}');
       }
+    } else {
+      print('Server error: ${response.statusCode}');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFDECEC),
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(hintText: 'Enter your full name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your full name';
-                  }
-                  return null;
-                },
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    radius: 50,
+                    child: Icon(Icons.person, size: 50),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Handle change photo functionality
+                    },
+                    child: const Text('Change Photo'),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(hintText: 'Enter your email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _contactController,
-                decoration: InputDecoration(hintText: 'Enter your contact number'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your contact number';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _saveProfile,
-                  child: const Text('Save Changes'),
+            ),
+            TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                label: const Text('Name'),
+                hintText: 'Enter Full Name',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 25.0),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                label: const Text('Email'),
+                hintText: 'Enter Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25.0),
+            TextField(
+              controller: _phoneController,
+              decoration: InputDecoration(
+                label: const Text('Phone Number'),
+                hintText: 'Enter Phone Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25.0),
+            TextField(
+              controller: _emergencyphoneController,
+              decoration: InputDecoration(
+                label: const Text('Emergency Phone Number'),
+                hintText: 'Enter Phone Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
+            DropdownButtonFormField<String>(
+              value: _selectedGender,
+              items: ["Select gender", "Male", "Female", "Prefer Not To Say"]
+                  .map((gender) => DropdownMenuItem(
+                        value: gender,
+                        child: Text(gender),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedGender = value!;
+                });
+              },
+              decoration: InputDecoration(
+                label: const Text('Gender'),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: _updateProfile,
+              child: const Text('Save Changes'),
+            ),
+          ],
         ),
       ),
     );

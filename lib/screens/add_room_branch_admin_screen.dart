@@ -112,7 +112,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
                     try {
                       final response = await http.post(
                         Uri.parse(
-                            'http://10.65.133.78/Othego_mobile/add_room.php'), // Update with your server URL
+                            'http://192.168.0.134/Othego_mobile/add_room.php'), // Update with your server URL
                         body: {
                           'roomName': roomNameController.text,
                           'roomLoc': selectedLocation,
