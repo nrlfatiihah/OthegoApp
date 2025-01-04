@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'success_app.dart';
+import 'package:othego_project/screens/complainpage.dart';
+import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/profile.dart';
+import 'package:othego_project/screens/room_list_screen.dart';
+import 'package:othego_project/screens/transactionhistory1.dart';
 
 class ThirdProcessCheckoutScreen extends StatefulWidget {
   const ThirdProcessCheckoutScreen({super.key});
@@ -186,12 +190,49 @@ class _ThirdProcessCheckoutScreenState
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        selectedItemColor: Colors.redAccent,
-        unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.red, // Active item color
+        unselectedItemColor: Colors.black, // Inactive items color
         backgroundColor: Colors.white,
         iconSize: 30.0,
+        currentIndex: _currentIndex, // Update the current index dynamically
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Update the active index
+          });
+
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RoomListScreen()),
+            );
+          }
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
+            );
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
+            );
+          }
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Profile()),
+            );
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -323,18 +364,24 @@ class SuccessPage extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Homepage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFFFF4444),
+                  backgroundColor: Colors.red,
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                     side: const BorderSide(color: Color(0xFFFF4444)),
                   ),
                 ),
-                child: const Text('Back to Home Page'),
+                child: const Text('Back to Home Page',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    )),
               ),
             ),
           ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/check_out_second_process.dart';
+import 'package:othego_project/screens/complainpage.dart';
+import 'package:othego_project/screens/room_list_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final DateTime? startDate;
@@ -11,7 +13,6 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  int _selectedIndex = 0; // Default to Home (index 2)
   int _currentIndex = 0; // For BottomNavigationBar
 
   // Method to format the date nicely
@@ -378,29 +379,68 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.red,
-        currentIndex: _currentIndex,
-        onTap: _onItemTapped,
+        selectedItemColor: Colors.red, // Active item color
+        unselectedItemColor: Colors.black, // Inactive items color
+        backgroundColor: Colors.white,
+        iconSize: 30.0,
+        currentIndex: _currentIndex, // Update the current index dynamically
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Update the active index
+          });
+
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RoomListScreen()),
+            );
+          }
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
+            );
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
+            );
+          }
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Profile()),
+            );
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: "Search",
+            label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: "Transaction",
+            icon: Icon(Icons.receipt_long),
+            label: 'Transaction History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "Home",
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.help),
-            label: "Help",
+            icon: Icon(Icons.message),
+            label: 'Contact Us',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Profile",
+            label: 'Profile',
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/room_list_screen.dart';
+import 'package:othego_project/screens/transactionhistory1.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -288,7 +289,11 @@ class _HomepageState extends State<Homepage> {
             );
           }
           if (index == 1) {
-            //Navigate to transaction history
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
+            );
           }
           if (index == 2) {
             Navigator.push(

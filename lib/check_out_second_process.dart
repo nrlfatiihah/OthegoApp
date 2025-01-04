@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/complainpage.dart';
+import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/profile.dart';
+import 'package:othego_project/screens/room_list_screen.dart';
+import 'package:othego_project/screens/transactionhistory1.dart';
 import 'booking_invoice.dart';
 
-class SecProcessCheckoutScreen extends StatelessWidget {
+class SecProcessCheckoutScreen extends StatefulWidget {
   const SecProcessCheckoutScreen({super.key});
+
+  @override
+  _SecProcessCheckoutScreenState createState() =>
+      _SecProcessCheckoutScreenState();
+}
+
+class _SecProcessCheckoutScreenState extends State<SecProcessCheckoutScreen> {
+  int _currentIndex = 2;
 
   Widget _buildStep(String stepNumber, String label, bool isActive) {
     return Column(
@@ -135,15 +148,72 @@ class SecProcessCheckoutScreen extends StatelessWidget {
               // Bottom Navigation Bar
               BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
-                currentIndex: 2,
+                selectedItemColor: Colors.red, // Active item color
+                unselectedItemColor: Colors.black, // Inactive items color
+                backgroundColor: Colors.white,
+                iconSize: 30.0,
+                currentIndex:
+                    _currentIndex, // Update the current index dynamically
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex = index; // Update the active index
+                  });
+
+                  if (index == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RoomListScreen()),
+                    );
+                  }
+                  if (index == 1) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TransactionHistoryPage()),
+                    );
+                  }
+                  if (index == 2) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Homepage()),
+                    );
+                  }
+                  if (index == 3) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HelpContactPage()),
+                    );
+                  }
+                  if (index == 4) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Profile()),
+                    );
+                  }
+                },
                 items: const [
-                  BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-                  BottomNavigationBarItem(icon: Icon(Icons.article), label: ''),
-                  BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.chat_bubble_outline), label: ''),
+                    icon: Icon(Icons.search),
+                    label: 'Search',
+                  ),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.person_outline), label: ''),
+                    icon: Icon(Icons.receipt_long),
+                    label: 'Transaction History',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.message),
+                    label: 'Contact Us',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
                 ],
               ),
             ],
@@ -152,46 +222,4 @@ class SecProcessCheckoutScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _buildStepperItem(int number, String text, bool isCompleted) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isCompleted ? Colors.red : Colors.grey[300],
-        ),
-        child: Center(
-          child: Text(
-            number.toString(),
-            style: TextStyle(
-              color: isCompleted ? Colors.white : Colors.grey,
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ),
-      const SizedBox(height: 4),
-      Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 12,
-          color: isCompleted ? Colors.red : Colors.grey,
-        ),
-      ),
-    ],
-  );
-}
-
-Widget _buildStepperLine(bool isCompleted) {
-  return Container(
-    width: 30,
-    height: 1,
-    color: isCompleted ? Colors.red : Colors.grey[300],
-  );
 }
