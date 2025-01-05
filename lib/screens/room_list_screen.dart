@@ -18,7 +18,7 @@ class RoomListScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          
+
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
@@ -33,8 +33,8 @@ class RoomListScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RoomDetailsScreen(roomId: room.id)
-                    ),
+                        builder: (context) =>
+                            RoomDetailsScreen(roomId: room.id)),
                   );
                 },
                 child: Card(
@@ -65,9 +65,12 @@ class RoomListScreen extends StatelessWidget {
                             const SizedBox(height: 8),
                             Text(
                               'RM ${room.price.toStringAsFixed(2)} /month',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ],
                         ),

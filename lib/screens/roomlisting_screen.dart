@@ -1,93 +1,120 @@
 import 'package:flutter/material.dart';
-import 'update_room_screen_admin.dart';
-import 'add_room_branch_admin_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:othego_project/screens/add_room_branch_admin_screen.dart';
+import 'package:othego_project/screens/update_room_screen_admin.dart';
 
-class RoomListingScreen extends StatelessWidget {
-  //display list of branches
+class RoomListingScreen extends StatefulWidget {
   const RoomListingScreen({super.key});
 
-  final List<Map<String, String>> branches = const [
-    {"name": "Richmond", "image": "images/R2.jpg"},
-    {"name": "Batu 4", "image": "images/B4.3.jpg"},
-    {"name": "Tun Zaidi", "image": "images/Tun_Zaidi_1.jpg"},
-    {"name": "Matang", "image": "images/M6.jpg"},
-    {"name": "Batu 9, Kota Padawan", "image": "images/B9.1.jpg"},
-    {"name": "Batu 7", "image": "images/B7.1.jpg"},
-    {"name": "Uni-Central Samarahan", "image": "images/S1.jpg"},
-    {"name": "Chai Yi Building", "image": "images/CY7.jpg"},
-  ];
+  @override
+  _RoomListingScreenState createState() => _RoomListingScreenState();
+}
 
-  void navigateToAddRoom(BuildContext context) {
-    //if user clicked on add new room button, this function will be called
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const AddRoomScreen(),
-      ),
-    );
+class _RoomListingScreenState extends State<RoomListingScreen> {
+  List<Map<String, dynamic>> rooms = []; // To store room data
+  bool isLoading = true; // To show a loading indicator
+
+  // Function to fetch room data from PHP API
+  Future<void> fetchRooms() async {
+    try {
+      final response = await http
+          .get(Uri.parse('http://10.65.130.51/Othego_mobile/get_room.php'));
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+        setState(() {
+          rooms = data
+              .map((room) => {
+                    "roomID": int.parse(room['roomID']),
+                    "roomName": room['roomName'],
+                    "roomLoc": room['roomLoc'],
+                    "roomPrice": room['roomPrice'],
+                    "roomDesc": room['roomDesc'],
+                  })
+              .toList();
+          isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to load rooms');
+      }
+    } catch (e) {
+      print('Error fetching rooms: $e');
+      setState(() {
+        isLoading = false; // Stop loading if an error occurs
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRooms();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Room Listings'), //screen title
+        title: const Text('Room Listings'),
         centerTitle: true,
         backgroundColor: Colors.red,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: branches.length,
-              itemBuilder: (context, index) {
-                return RepaintBoundary(
-                  child: BranchCard(
-                    branchName: branches[index]['name']!,
-                    imagePath: branches[index]['image']!,
-                    onUpdate: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UpdateRoomScreen(
-                            branchName: branches[index]['name']!,
-                          ),
-                        ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: rooms.length,
+                    itemBuilder: (context, index) {
+                      return RoomCard(
+                        roomID: rooms[index]
+                            ['roomID'], // Ensure roomID is passed
+                        roomName: rooms[index]['roomName'] ?? 'Unknown',
+                        roomLoc: rooms[index]['roomLoc'] ?? 'Unknown',
+                        roomPrice: rooms[index]['roomPrice']?.toString() ?? '0',
+                        roomDesc: rooms[index]['roomDesc'] ?? 'No description',
                       );
                     },
                   ),
-                );
-              },
+                ),
+                Container(
+                  width: double.infinity,
+                  color: Colors.black,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddRoomScreen()),
+                      );
+                    },
+                    child: const Text(
+                      'Add New Room',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            width: double.infinity,
-            color: Colors.black,
-            child: TextButton(
-              onPressed: () => navigateToAddRoom(context),
-              child: const Text(
-                'Add New Room',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
 
-class BranchCard extends StatelessWidget {
-  //list of branch cards
-  final String branchName;
-  final String imagePath;
-  final VoidCallback onUpdate;
+class RoomCard extends StatelessWidget {
+  final int roomID;
+  final String roomName;
+  final String roomLoc;
+  final String roomPrice;
+  final String roomDesc;
 
-  const BranchCard({
+  const RoomCard({
     super.key,
-    required this.branchName,
-    required this.imagePath,
-    required this.onUpdate,
+    required this.roomID,
+    required this.roomName,
+    required this.roomLoc,
+    required this.roomPrice,
+    required this.roomDesc,
   });
 
   @override
@@ -95,25 +122,10 @@ class BranchCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
       child: Card(
-        elevation: 2, // Reduced for performance
+        elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                width: 120,
-                height: 120,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.error, size: 120, color: Colors.red);
-                },
-              ),
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -121,21 +133,35 @@ class BranchCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Branch: $branchName',
+                      'Room: $roomName',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    const Text('Room Details'),
-                    const Text('Amenities'),
-                    const Text('Property Information'),
-                    const Text('Featured Images'),
+                    Text('Location: $roomLoc'),
+                    Text('Price: \$${roomPrice}'),
+                    Text('Amenities: $roomDesc'),
                   ],
                 ),
               ),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              onPressed: onUpdate,
+              onPressed: () async {
+                // Push to update room screen and wait for result
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateRoomScreen(
+                      roomID: roomID,
+                      roomName: roomName,
+                      roomDesc: roomDesc,
+                      roomLoc: roomLoc,
+                      roomPrice: double.parse(roomPrice),
+                      roomAvailability: 1, // Replace with actual data
+                    ),
+                  ),
+                );
+              },
               child: const Text(
                 'Update',
                 style: TextStyle(color: Colors.white),

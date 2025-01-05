@@ -1,32 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class UpdateRoomScreen extends StatefulWidget {
-  //represent room details and other information which can be updated
-  final String branchName;
+  final int roomID;
+  final String roomName;
+  final String roomDesc;
+  final String roomLoc;
+  final double roomPrice;
+  final int roomAvailability;
 
-  const UpdateRoomScreen({super.key, required this.branchName});
+  const UpdateRoomScreen({
+    Key? key,
+    required this.roomID,
+    required this.roomName,
+    required this.roomDesc,
+    required this.roomLoc,
+    required this.roomPrice,
+    required this.roomAvailability,
+  }) : super(key: key);
 
   @override
-  _UpdateRoomScreenState createState() =>
-      _UpdateRoomScreenState(); //to manage the state of the widget
+  _UpdateRoomScreenState createState() => _UpdateRoomScreenState();
 }
 
 class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
-  // Room details to track
-  int availableRooms = 0;
-  int washrooms = 0;
-  int wallFans = 0;
-  int exhaustFans = 0;
-  int airConditioners = 0;
-  int wardrobes = 0;
+  final _formKey = GlobalKey<FormState>();
 
-  // Amenities to track
-  bool diningSpace = false;
-  bool deskAndChair = false;
-  bool washingMachine = false;
-  bool bathroomSupplies = false;
-  bool kitchenAccess = false;
-  bool wifiAccess = false;
+  late String roomName;
+  late String roomDesc;
+  late String roomLoc;
+  late double roomPrice;
+  late int roomAvailability;
+
+  @override
+  void initState() {
+    super.initState();
+    roomName = widget.roomName;
+    roomDesc = widget.roomDesc;
+    roomLoc = widget.roomLoc;
+    roomPrice = widget.roomPrice;
+    roomAvailability = widget.roomAvailability;
+  }
+
+  // Inside UpdateRoomScreen
+  Future<void> updateRoomDetails() async {
+    final url = Uri.parse('http://10.65.130.51/Othego_mobile/update_room.php');
+
+    final response = await http.post(url, body: {
+      'roomID': widget.roomID.toString(),
+      'roomName': roomName,
+      'roomDesc': roomDesc,
+      'roomLoc': roomLoc,
+      'roomPrice': roomPrice.toString(),
+      'roomAvailability': roomAvailability.toString(),
+    });
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      if (responseData['success']) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Room updated successfully!')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text('Failed to update room: ${responseData['message']}')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Server error: ${response.statusCode}')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,242 +83,83 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
         title: const Text('Update Room'),
         backgroundColor: Colors.red,
       ),
-      body: SingleChildScrollView(
-        //allowing vertical scrolling
+      body: Form(
+        key: _formKey,
         child: Padding(
-          //add padding using column
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Room Details",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  initialValue: roomName,
+                  decoration: const InputDecoration(labelText: 'Room Name'),
+                  onChanged: (value) => roomName = value,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Room name is required' : null,
                 ),
-              ),
-              const SizedBox(height: 8),
-              _buildNumberInputRow("Number of Available Room", () {
-                //display label, decrement & increment button with value
-                setState(() {
-                  if (availableRooms > 0) availableRooms--;
-                });
-              }, () {
-                setState(() {
-                  availableRooms++;
-                });
-              }, availableRooms),
-              _buildNumberInputRow("Number of Washroom", () {
-                setState(() {
-                  if (washrooms > 0) washrooms--;
-                });
-              }, () {
-                setState(() {
-                  washrooms++;
-                });
-              }, washrooms),
-              _buildNumberInputRow("Number of Wall Fan", () {
-                setState(() {
-                  if (wallFans > 0) wallFans--;
-                });
-              }, () {
-                setState(() {
-                  wallFans++;
-                });
-              }, wallFans),
-              _buildNumberInputRow("Number of Exhaust Fan", () {
-                setState(() {
-                  if (exhaustFans > 0) exhaustFans--;
-                });
-              }, () {
-                setState(() {
-                  exhaustFans++;
-                });
-              }, exhaustFans),
-              _buildNumberInputRow("Number of Air-Conditioner", () {
-                setState(() {
-                  if (airConditioners > 0) airConditioners--;
-                });
-              }, () {
-                setState(() {
-                  airConditioners++;
-                });
-              }, airConditioners),
-              _buildNumberInputRow("Number of Wardrobe", () {
-                setState(() {
-                  if (wardrobes > 0) wardrobes--;
-                });
-              }, () {
-                setState(() {
-                  wardrobes++;
-                });
-              }, wardrobes),
-              const SizedBox(height: 16),
-              const Text(
-                "Amenities",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                const SizedBox(height: 16),
+                TextFormField(
+                  initialValue: roomDesc,
+                  decoration:
+                      const InputDecoration(labelText: 'Room Description'),
+                  onChanged: (value) => roomDesc = value,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Room description is required' : null,
                 ),
-              ),
-              const SizedBox(height: 8),
-              _buildAmenityToggle("Dining Space", diningSpace, (value) {
-                //toggle for dining space
-                setState(() {
-                  diningSpace = value; //call boolean to update
-                });
-              }),
-              _buildAmenityToggle("Desk and Chair", deskAndChair, (value) {
-                //toggle for desk and chair
-                setState(() {
-                  deskAndChair = value; //call boolean to update
-                });
-              }),
-              _buildAmenityToggle("Washing Machine", washingMachine, (value) {
-                //toogle for washing machine
-                setState(() {
-                  washingMachine = value; //call boolean to update
-                });
-              }),
-              _buildAmenityToggle("Bathroom Supplies", bathroomSupplies,
-                  (value) {
-                //toggle for bathroom supplies
-                setState(() {
-                  bathroomSupplies = value; //call bolean to update
-                });
-              }),
-              _buildAmenityToggle("Kitchen Access", kitchenAccess, (value) {
-                //toogle for kitchen access
-                setState(() {
-                  kitchenAccess = value; //call boolean to update
-                });
-              }),
-              _buildAmenityToggle("Wi-Fi Access", wifiAccess, (value) {
-                //toggle for wifi access
-                setState(() {
-                  wifiAccess = value; //call boolean to update
-                });
-              }),
-              const SizedBox(height: 16),
-              const Text(
-                //allow user to fill in details for property information == description
-                "Property Information",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                const SizedBox(height: 16),
+                TextFormField(
+                  initialValue: roomLoc,
+                  decoration: const InputDecoration(labelText: 'Room Location'),
+                  onChanged: (value) => roomLoc = value,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Room location is required' : null,
                 ),
-              ),
-              const SizedBox(height: 8),
-              const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Write full description of the room rental",
+                const SizedBox(height: 16),
+                TextFormField(
+                  initialValue: roomPrice.toString(),
+                  decoration: const InputDecoration(labelText: 'Room Price'),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) =>
+                      roomPrice = double.tryParse(value) ?? 0.0,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Room price is required' : null,
                 ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Featured Images",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                const SizedBox(height: 16),
+                TextFormField(
+                  initialValue: roomAvailability.toString(),
+                  decoration:
+                      const InputDecoration(labelText: 'Room Availability'),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) =>
+                      roomAvailability = int.tryParse(value) ?? 0,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Room availability is required' : null,
                 ),
-              ),
-              const SizedBox(height: 8),
-              Center(
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.upload),
-                  label: const Text(
-                    //allow user to upload image
-                    "Upload Photo",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                const SizedBox(height: 16),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        updateRoomDetails();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 32),
+                    ),
+                    child: const Text(
+                      'Update Room',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 64),
-                  ),
-                  child: const Text(
-                    "Update", //update when got clicked and return to the room listing screen
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildNumberInputRow(
-    String label,
-    VoidCallback onDecrease,
-    VoidCallback onIncrease,
-    int value,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              label,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.remove_circle, color: Colors.red),
-                onPressed: onDecrease,
-              ),
-              Text(
-                value.toString(),
-                style: const TextStyle(fontSize: 16),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add_circle, color: Colors.red),
-                onPressed: onIncrease,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAmenityToggle(
-    String label,
-    bool value,
-    ValueChanged<bool> onChanged,
-  ) {
-    return SwitchListTile(
-      title: Text(
-        label,
-        style: const TextStyle(fontSize: 16),
-      ),
-      value: value,
-      onChanged: onChanged,
-      activeColor: Colors.red,
     );
   }
 }
