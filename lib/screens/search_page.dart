@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
-import 'package:othego_project/screens/show_room_page.dart';
+import 'package:othego_project/screens/show_room_screen_google.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
 import 'package:othego_project/screens/complainpage.dart';
 
@@ -29,7 +29,7 @@ class _SearchPageState extends State<SearchPage> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ShowRoomPage()),
+          MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
         );
         break;
       case 1:
@@ -72,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
             // Navigate to the ShowRoomPage
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ShowRoomPage()),
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
             );
           },
           child: const Text('Search'),
