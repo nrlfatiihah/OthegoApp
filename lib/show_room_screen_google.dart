@@ -4,35 +4,12 @@ import 'package:othego_project/check_out_screen_cust.dart';
 import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/room_list_screen.dart';
 
-void main() {
-  //main function
-  runApp(const ShowRoomApp());
-}
-
 class ShowRoomScreen extends StatefulWidget {
   //display list of available rooms
   const ShowRoomScreen({super.key});
 
   @override
   State<ShowRoomScreen> createState() => _ShowRoomScreenState();
-}
-
-class ShowRoomApp extends StatelessWidget {
-  //manages route navigation
-  const ShowRoomApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, //disable debug banner
-      initialRoute: '/', //default screen
-      routes: {
-        //navigation paths
-        '/': (context) => const ShowRoomScreen(),
-        '/map': (context) => const MapScreen(),
-      },
-    );
-  }
 }
 
 class _ShowRoomScreenState extends State<ShowRoomScreen> {
