@@ -20,7 +20,7 @@ class _SignInState extends State<SignIn> {
 
   void _login() async {
     const url =
-        'http://10.16.160.216/Othego_mobile/signin.php'; // Replace with your PHP server URL
+        'http://172.20.10.2/Othego_mobile/signin.php'; // Replace with your PHP server URL
     try {
       final response = await http.post(
         Uri.parse(url),

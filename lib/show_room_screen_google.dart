@@ -7,10 +7,17 @@ import 'package:othego_project/room_details_3.dart';
 import 'package:othego_project/room_details_4.dart';
 import 'package:othego_project/room_details_5.dart';
 import 'package:othego_project/screens/complainpage.dart';
+import 'package:othego_project/screens/filter_page.dart';
 
 class ShowRoomScreen extends StatefulWidget {
+  final String? filterLocation;
+  final String? filterOccupants;
   //display list of available rooms
-  const ShowRoomScreen({super.key});
+  const ShowRoomScreen({
+    this.filterLocation,
+    this.filterOccupants,
+    super.key,
+  });
 
   @override
   State<ShowRoomScreen> createState() => _ShowRoomScreenState();
@@ -19,51 +26,71 @@ class ShowRoomScreen extends StatefulWidget {
 class _ShowRoomScreenState extends State<ShowRoomScreen> {
   int _currentIndex =
       0; //indicates index of current tab to be selected for bottom navigation bar
+  late List<Map<String, dynamic>> filteredBoxData;
+  @override
+  void initState() {
+    super.initState();
+    filteredBoxData = _getFilteredData();
+  }
 
-  final List<Map<String, dynamic>> boxData = const [
-    //boxData to store information of title, description, image, tags
-    {
-      "title": "Metrocity Matang",
-      "description":
-          "• Empty room with fan\n• Washing machine\n• Access door system",
-      "image": "images/M6.jpg",
-      "tags": ["7 bedrooms", "2 bath", "Washing Machine provided"]
-    },
-    {
-      "title": "Richmond",
-      "description":
-          "• Fully furnished\n• High-speed internet\n• Access door system",
-      "image": "images/R2.jpg",
-      "tags": ["4 bedrooms", "3 bath", "Internet provided"]
-    },
-    {
-      "title": "Tun Zaidi",
-      "description":
-          "• Complete with WiFi\n• Nearby shopping mall\n• Access door system\n•Kitchen Access",
-      "image": "images/Tun_Zaidi_1.jpg",
-      "tags": ["7 bedrooms", "2 bath", "Near AEON Mall"]
-    },
-    {
-      "title": "Uni-Central, Kota Samarahan",
-      "description":
-          "• 3 large rooms\n• Sunset & Sunrise view\n• Access door system",
-      "image": "images/S1.jpg",
-      "tags": ["6 bedrooms", "4 bath", "City View"]
-    },
-    {
-      "title": "Chai Yi Building, BDC",
-      "description":
-          "• Have 2 rooms completed with bedframe and wardrobe\n• Spacious layout\n• Kitchen access with balcony\n• Near to Excellence Delight, Few minutes to Saradise",
-      "image": "images/CY2.jpg",
-      "tags": [
-        "8 bedrooms",
-        "2 bath",
-        "Near Excellence Delight",
-        "5 minutes to Saradise",
-        "5-8 minutes to Kuching International Airport"
-      ]
-    },
-  ];
+  List<Map<String, dynamic>> _getFilteredData() {
+    final List<Map<String, dynamic>> boxData = const [
+      {
+        "title": "Metrocity Matang",
+        "location": "Matang",
+        "description":
+            "• Empty room with fan\n• Washing machine\n• Access door system",
+        "image": "images/M6.jpg",
+        "tags": ["7 bedrooms", "2 bath", "Washing Machine provided"]
+      },
+      {
+        "title": "Richmond",
+        "location": "Richmond",
+        "description":
+            "• Fully furnished\n• High-speed internet\n• Access door system",
+        "image": "images/R2.jpg",
+        "tags": ["4 bedrooms", "3 bath", "Internet provided"]
+      },
+      {
+        "title": "Tun Zaidi",
+        "location": "Tun Zaidi",
+        "description":
+            "• Complete with WiFi\n• Nearby shopping mall\n• Access door system\n•Kitchen Access",
+        "image": "images/Tun_Zaidi_1.jpg",
+        "tags": ["7 bedrooms", "2 bath", "Near AEON Mall"]
+      },
+      {
+        "title": "Uni-Central, Kota Samarahan",
+        "location": "Samarahan",
+        "description":
+            "• 3 large rooms\n• Sunset & Sunrise view\n• Access door system",
+        "image": "images/S1.jpg",
+        "tags": ["6 bedrooms", "4 bath", "City View"]
+      },
+      {
+        "title": "Chai Yi Building, BDC",
+        "location": "BDC",
+        "description":
+            "• Have 2 rooms completed with bedframe and wardrobe\n• Spacious layout\n• Kitchen access with balcony\n• Near to Excellence Delight, Few minutes to Saradise",
+        "image": "images/CY2.jpg",
+        "tags": [
+          "8 bedrooms",
+          "2 bath",
+          "Near Excellence Delight",
+          "5 minutes to Saradise",
+          "5-8 minutes to Kuching International Airport"
+        ]
+      },
+    ];
+
+    if (widget.filterLocation == null) {
+      return boxData;
+    }
+
+    return boxData.where((box) {
+      return box['location'] == widget.filterLocation;
+    }).toList();
+  }
 
   void _onTabTapped(int index) {
     //this function is to updates the current tab when it got tapped
@@ -84,19 +111,30 @@ class _ShowRoomScreenState extends State<ShowRoomScreen> {
         leading: IconButton(
           //back button
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        title: const TextField(
-          //search bar for user to input
-          decoration: InputDecoration(
-            hintText: 'Search',
-            prefixIcon: Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              borderSide: BorderSide.none,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FilterPage()),
+            );
+          },
+          child: const TextField(
+            //search bar for user to input
+            enabled: false,
+            decoration: InputDecoration(
+              hintText: 'Search',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
             ),
-            filled: true,
-            fillColor: Colors.white,
           ),
         ),
       ),
@@ -104,11 +142,10 @@ class _ShowRoomScreenState extends State<ShowRoomScreen> {
         children: [
           Expanded(
             child: ListView.builder(
-              //generates list of cards displaying the properties from boxData
               padding: const EdgeInsets.all(16.0),
-              itemCount: boxData.length,
+              itemCount: filteredBoxData.length,
               itemBuilder: (context, index) {
-                final box = boxData[index];
+                final box = filteredBoxData[index];
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: GestureDetector(

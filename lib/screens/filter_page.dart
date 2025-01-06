@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:othego_project/screens/homepage.dart'; // Import the HomePage
+import 'package:othego_project/show_room_screen_google.dart';
 
-class FilterPage extends StatelessWidget {
+class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
 
+  @override
+  State<FilterPage> createState() => _FilterPageState();
+}
+
+class _FilterPageState extends State<FilterPage> {
+  String? selectedLocation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +32,6 @@ class FilterPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Location Dropdown
             const Row(
               children: [
                 Icon(Icons.location_on, color: Colors.black),
@@ -42,84 +47,33 @@ class FilterPage extends StatelessWidget {
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               ),
+              value: selectedLocation,
               items: const [
-                DropdownMenuItem(value: 'Batu 4', child: Text('Batu 4')),
-                DropdownMenuItem(value: 'batu 9', child: Text('Batu 9')),
-                DropdownMenuItem(value: 'Richmond', child: Text('Richmond')),
-                DropdownMenuItem(value: 'Tun Zaidi ', child: Text('Tun Zaidi')),
-                DropdownMenuItem(value: 'Batu 7', child: Text('batu 7')),
                 DropdownMenuItem(value: 'Matang', child: Text('Matang')),
+                DropdownMenuItem(value: 'Richmond', child: Text('Richmond')),
+                DropdownMenuItem(value: 'Tun Zaidi', child: Text('Tun Zaidi')),
                 DropdownMenuItem(value: 'Samarahan', child: Text('Samarahan')),
+                DropdownMenuItem(value: 'BDC', child: Text('BDC')),
               ],
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  selectedLocation = value;
+                });
+              },
               hint: const Text('Select'),
-            ),
-            const SizedBox(height: 16),
-            // Number of Occupants Dropdown
-            const Row(
-              children: [
-                Icon(Icons.person, color: Colors.black),
-                SizedBox(width: 8),
-                Text('Number of Occupants',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              items: const [
-                DropdownMenuItem(value: '1', child: Text('1')),
-                DropdownMenuItem(value: '2', child: Text('2')),
-                DropdownMenuItem(
-                    value: 'more than 2', child: Text('more than 2')),
-              ],
-              onChanged: (value) {},
-              hint: const Text('Select'),
-            ),
-            const SizedBox(height: 16),
-            // Cost Checkbox
-            const Row(
-              children: [
-                Icon(Icons.monetization_on, color: Colors.black),
-                SizedBox(width: 8),
-                Text('Cost',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                ),
-                const Text('RM 350 - RM 400'),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                ),
-                const Text('RM 400 - RM 450'),
-              ],
             ),
             const Spacer(),
-            // Filter Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to HomePage
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const Homepage()),
+                    MaterialPageRoute(
+                      builder: (context) => ShowRoomScreen(
+                        filterLocation: selectedLocation,
+                      ),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
