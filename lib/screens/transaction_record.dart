@@ -5,6 +5,7 @@ import 'package:othego_project/screens/customer_account.dart';
 import 'package:othego_project/screens/review_rating_admin_screen.dart';
 import 'package:othego_project/screens/roomlisting_screen.dart';
 import 'package:othego_project/screens/transactionDetails.dart';
+import 'package:othego_project/screens/welcome_page.dart';
 
 class TransactionRecordsPage extends StatefulWidget {
   const TransactionRecordsPage({super.key});
@@ -144,6 +145,10 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
               SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
+              ),
+              SidebarItem(
+                title: 'Logout',
+                destination: WelcomePage(),
               ),
             ],
           ),

@@ -5,6 +5,7 @@ import 'package:othego_project/screens/customer_account.dart';
 import 'package:othego_project/screens/review_rating_admin_screen.dart';
 import 'package:othego_project/screens/roomlisting_screen.dart';
 import 'package:othego_project/screens/transaction_record.dart';
+import 'package:othego_project/screens/welcome_page.dart';
 
 class TransactionDetailsPage extends StatelessWidget {
   final Map<String, String> transaction;
@@ -63,6 +64,10 @@ class TransactionDetailsPage extends StatelessWidget {
               SidebarItem(
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
+              ),
+              SidebarItem(
+                title: 'Logout',
+                destination: WelcomePage(),
               ),
             ],
           ),

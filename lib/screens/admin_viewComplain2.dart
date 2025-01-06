@@ -113,6 +113,16 @@ class _AdminViewComplain2State extends State<AdminViewComplain2> {
                         });
                       },
                     ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Complaint Reply',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      maxLines: 3,
+                    ),
                   ],
                 ),
               ),

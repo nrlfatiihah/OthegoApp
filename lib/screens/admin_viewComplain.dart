@@ -5,6 +5,8 @@ import 'package:othego_project/screens/customer_account.dart';
 import 'package:othego_project/screens/review_rating_admin_screen.dart';
 import 'package:othego_project/screens/roomlisting_screen.dart';
 import 'package:othego_project/screens/transaction_record.dart';
+import 'package:othego_project/screens/welcome_page.dart';
+import 'package:othego_project/widgets/welcome_buttons.dart';
 
 class AdminViewComplain extends StatefulWidget {
   const AdminViewComplain({super.key});
@@ -108,6 +110,7 @@ class _AdminViewComplainState extends State<AdminViewComplain> {
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),
+              SidebarItem(title: 'Logout', destination: WelcomePage())
             ],
           ),
         ),

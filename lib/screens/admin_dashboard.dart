@@ -4,6 +4,7 @@ import 'package:othego_project/screens/customer_account.dart';
 import 'package:othego_project/screens/review_rating_admin_screen.dart';
 import 'package:othego_project/screens/roomlisting_screen.dart';
 import 'package:othego_project/screens/transaction_record.dart';
+import 'package:othego_project/screens/welcome_page.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -66,6 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 title: 'Customer Complaint',
                 destination: AdminViewComplain(),
               ),
+              SidebarItem(title: 'Logout', destination: WelcomePage())
             ],
           ),
         ),
@@ -98,7 +100,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TransactionRecordsPage()),
+                            builder: (context) =>
+                                const TransactionRecordsPage()),
                       );
                     },
                     child: const InfoCard(
