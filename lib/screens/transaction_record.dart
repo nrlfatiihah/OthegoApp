@@ -219,7 +219,8 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(transaction['date']!,
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
                             const SizedBox(height: 4),
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -275,12 +276,13 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
               return FilterChip(
                 label: Text(month),
                 selected: selectedMonths.contains(month),
+                selectedColor: Colors.blue, // Change selected color immediately
                 onSelected: (selected) {
                   setState(() {
                     if (selected) {
-                      selectedMonths.add(month);
+                      selectedMonths.add(month); // Add to list when selected
                     } else {
-                      selectedMonths.remove(month);
+                      selectedMonths.remove(month); // Remove when unselected
                     }
                   });
                 },
@@ -301,6 +303,7 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                 .map((method) => FilterChip(
                       label: Text(method),
                       selected: selectedPaymentMethods.contains(method),
+                      selectedColor: Colors.blue, // Immediate color change
                       onSelected: (selected) {
                         setState(() {
                           if (selected) {
@@ -328,6 +331,8 @@ class _TransactionRecordsPageState extends State<TransactionRecordsPage> {
                             selectedStatus = value!;
                           });
                         },
+                        activeColor: Colors
+                            .blue, // Change color immediately when selected
                       ),
                     ))
                 .toList(),
