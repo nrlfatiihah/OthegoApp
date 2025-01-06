@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:othego_project/check_out_screen_cust.dart';
+import 'package:othego_project/room_details_1.dart';
+import 'package:othego_project/room_details_2.dart';
+import 'package:othego_project/room_details_3.dart';
+import 'package:othego_project/room_details_4.dart';
+import 'package:othego_project/room_details_5.dart';
 import 'package:othego_project/screens/complainpage.dart';
-import 'package:othego_project/screens/room_list_screen.dart';
 
 class ShowRoomScreen extends StatefulWidget {
   //display list of available rooms
@@ -22,35 +26,35 @@ class _ShowRoomScreenState extends State<ShowRoomScreen> {
       "title": "Metrocity Matang",
       "description":
           "• Empty room with fan\n• Washing machine\n• Access door system",
-      "image": "assets/M6.jpg",
+      "image": "images/M6.jpg",
       "tags": ["7 bedrooms", "2 bath", "Washing Machine provided"]
     },
     {
       "title": "Richmond",
       "description":
           "• Fully furnished\n• High-speed internet\n• Access door system",
-      "image": "assets/R2.jpg",
+      "image": "images/R2.jpg",
       "tags": ["4 bedrooms", "3 bath", "Internet provided"]
     },
     {
       "title": "Tun Zaidi",
       "description":
           "• Complete with WiFi\n• Nearby shopping mall\n• Access door system\n•Kitchen Access",
-      "image": "assets/Tun_Zaidi_1.jpg",
+      "image": "images/Tun_Zaidi_1.jpg",
       "tags": ["7 bedrooms", "2 bath", "Near AEON Mall"]
     },
     {
       "title": "Uni-Central, Kota Samarahan",
       "description":
           "• 3 large rooms\n• Sunset & Sunrise view\n• Access door system",
-      "image": "assets/S1.jpg",
+      "image": "images/S1.jpg",
       "tags": ["6 bedrooms", "4 bath", "City View"]
     },
     {
       "title": "Chai Yi Building, BDC",
       "description":
           "• Have 2 rooms completed with bedframe and wardrobe\n• Spacious layout\n• Kitchen access with balcony\n• Near to Excellence Delight, Few minutes to Saradise",
-      "image": "assets/CY2.jpg",
+      "image": "images/CY2.jpg",
       "tags": [
         "8 bedrooms",
         "2 bath",
@@ -107,57 +111,98 @@ class _ShowRoomScreenState extends State<ShowRoomScreen> {
                 final box = boxData[index];
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              box['image'], //image of property
-                              height: 180,
-                              width: 150,
-                              fit: BoxFit.cover,
-                            ),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Navigate to the appropriate RoomDetails screen based on the index
+                      if (index == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoomDetails1(roomData: box),
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  box['title'], //title of property
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                        );
+                      } else if (index == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoomDetails2(roomData: box),
+                          ),
+                        );
+                      } else if (index == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoomDetails3(roomData: box),
+                          ),
+                        );
+                      } else if (index == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoomDetails4(roomData: box),
+                          ),
+                        );
+                      } else if (index == 4) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoomDetails5(roomData: box),
+                          ),
+                        );
+                      }
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                box['image'], //image of property
+                                height: 180,
+                                width: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    box['title'], //title of property
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 7),
-                                Text(
-                                  box['description'], //description of property
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                const SizedBox(height: 12),
-                                Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  children: box['tags'] //tags of property
-                                      .map<Widget>(
-                                        (tag) => _buildTag(
-                                            tag), //build tag by calling the buildTag function widget
-                                      )
-                                      .toList(),
-                                ),
-                              ],
+                                  const SizedBox(height: 7),
+                                  Text(
+                                    box['description'], //description of property
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    children: box['tags'] //tags of property
+                                        .map<Widget>(
+                                          (tag) => _buildTag(
+                                              tag), //build tag by calling the buildTag function widget
+                                        )
+                                        .toList(),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -211,7 +256,7 @@ class _ShowRoomScreenState extends State<ShowRoomScreen> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const RoomListScreen()),
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
             );
           }
           if (index == 1) {

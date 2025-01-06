@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/welcome_page.dart';
 
 //main widget class to create an instance of the state using _ReviewRatingCustomer class
@@ -64,7 +65,7 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                       //first row
                       children: [
                         Image.asset(
-                          'assets/M6.jpg',
+                          'images/M6.jpg',
                           width: 100,
                           height: 100,
                           fit: BoxFit.cover,
@@ -200,7 +201,12 @@ class _ReviewRatingCustomer extends State<ReviewRatingCustomer> {
                                 const SizedBox(height: 24),
                                 ElevatedButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Homepage()),
+                                    );
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red,

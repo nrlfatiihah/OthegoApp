@@ -4,9 +4,10 @@ import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
-import 'package:othego_project/screens/search_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:othego_project/show_room_screen_google.dart';
 
 class HelpContactPage extends StatefulWidget {
   const HelpContactPage({super.key});
@@ -20,7 +21,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _complainController = TextEditingController();
-  int _currentIndex = 0;
+  int _currentIndex = 3;
 
   Future<void> _submitComplain() async {
     if (_formComplainKey.currentState!.validate()) {
@@ -212,7 +213,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SearchPage()),
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
             );
           }
           if (index == 1) {

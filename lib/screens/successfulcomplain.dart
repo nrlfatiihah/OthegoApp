@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
-
+import 'package:othego_project/screens/transactionhistory1.dart';
+import 'package:othego_project/show_room_screen_google.dart';
 
 class SuccessPage extends StatefulWidget {
   const SuccessPage({super.key});
@@ -101,10 +103,17 @@ class _SuccessPageState extends State<SuccessPage> {
           });
 
           if (index == 0) {
-            // Navigate to search room
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
+            );
           }
           if (index == 1) {
-            //Navigate to transaction history
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
+            );
           }
           if (index == 2) {
             Navigator.push(
@@ -113,7 +122,10 @@ class _SuccessPageState extends State<SuccessPage> {
             );
           }
           if (index == 3) {
-            // Navigate to contact us
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
+            );
           }
           if (index == 4) {
             Navigator.push(

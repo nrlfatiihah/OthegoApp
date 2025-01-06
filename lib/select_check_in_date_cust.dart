@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/screens/complainpage.dart';
-import 'package:othego_project/screens/room_list_screen.dart';
+import 'package:othego_project/show_room_screen_google.dart';
 import 'check_out_screen_cust.dart';
-
-void main() {
-  runApp(const CalendarApp());
-}
-
-class CalendarApp extends StatelessWidget {
-  const CalendarApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: CalendarScreen(),
-    );
-  }
-}
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -144,7 +128,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const RoomListScreen()),
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
             );
           }
           if (index == 1) {

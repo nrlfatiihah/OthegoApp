@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
-import 'package:othego_project/screens/room_list_screen.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
+import 'package:othego_project/show_room_screen_google.dart';
 import 'booking_invoice.dart';
 
 class SecProcessCheckoutScreen extends StatefulWidget {
@@ -163,7 +163,7 @@ class _SecProcessCheckoutScreenState extends State<SecProcessCheckoutScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RoomListScreen()),
+                          builder: (context) => const ShowRoomScreen()),
                     );
                   }
                   if (index == 1) {

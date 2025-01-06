@@ -3,7 +3,7 @@ import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
 import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/complainpage.dart';
-import 'package:othego_project/screens/search_page.dart';
+import 'package:othego_project/show_room_screen_google.dart';
 
 class TransactionDetailsPage extends StatefulWidget {
   const TransactionDetailsPage({super.key});
@@ -13,7 +13,7 @@ class TransactionDetailsPage extends StatefulWidget {
 }
 
 class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SearchPage()),
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
             );
           }
           if (index == 1) {

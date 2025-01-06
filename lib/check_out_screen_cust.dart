@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/check_out_second_process.dart';
 import 'package:othego_project/screens/complainpage.dart';
-import 'package:othego_project/screens/room_list_screen.dart';
+import 'package:othego_project/show_room_screen_google.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final DateTime? startDate;
@@ -392,7 +392,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const RoomListScreen()),
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
             );
           }
           if (index == 1) {

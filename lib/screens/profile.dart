@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:othego_project/profile_settings_screen.dart';
+import 'package:othego_project/screens/complainpage.dart';
 import 'package:othego_project/screens/homepage.dart';
+import 'package:othego_project/screens/transactionhistory1.dart';
 import 'package:othego_project/screens/welcome_page.dart';
+import 'package:othego_project/show_room_screen_google.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -188,10 +191,17 @@ class _ProfileState extends State<Profile> {
           });
 
           if (index == 0) {
-            // Navigate to search room
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ShowRoomScreen()),
+            );
           }
           if (index == 1) {
-            // Navigate to transaction history
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const TransactionHistoryPage()),
+            );
           }
           if (index == 2) {
             Navigator.push(
@@ -200,7 +210,10 @@ class _ProfileState extends State<Profile> {
             );
           }
           if (index == 3) {
-            // Navigate to contact us
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HelpContactPage()),
+            );
           }
           if (index == 4) {
             Navigator.push(
