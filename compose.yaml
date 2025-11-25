@@ -1,12 +1,12 @@
 services:
   othegoapp:
-    image: othegoapp
+    image: othegoapp          # Name of the image to build
     build:
-      context: .
-      dockerfile: ./Dockerfile
-    container_name: php-backend
+      context: .              # Build context is the current directory
+      dockerfile: ./Dockerfile  # Explicit Dockerfile to use
+    container_name: php-backend  # Sets a fixed container name
     ports:
-      - "8080:80"
+      - "8080:80"             # Maps host port 8080 to container port 80
     volumes:
-      - .:/var/www/html
-    restart: unless-stopped
+      - .:/var/www/html       # Mounts current directory into container
+    restart: unless-stopped   # Auto-restart policy
