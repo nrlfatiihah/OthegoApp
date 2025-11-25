@@ -45,7 +45,7 @@ class _UpdateRoomScreenState extends State<UpdateRoomScreen> {
 
   // Inside UpdateRoomScreen
   Future<void> updateRoomDetails() async {
-    final url = Uri.parse('http://10.65.130.51/Othego_mobile/update_room.php');
+    final url = Uri.parse('http://192.168.0.162/Othego_mobile/update_room.php');
 
     final response = await http.post(url, body: {
       'roomID': widget.roomID.toString(),
