@@ -1,16 +1,26 @@
-FROM php:8.2-apache
+# Use official Flutter SDK image
+FROM cirrusci/flutter:stable AS builder
 
-# Install PHP extensions you need
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Set working directory
+WORKDIR /app
 
-# Optional: enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Copy pubspec files first for caching dependencies
+COPY pubspec.* ./
 
-# Copy your PHP project into the container
-COPY src/ /var/www/html/
+# Get dependencies
+RUN flutter pub get
 
-WORKDIR /var/www/html
+# Copy the rest of the project
+COPY . .
 
-EXPOSE 80
+# Pre-cache Flutter artifacts (optional)
+RUN flutter precache
 
-CMD ["apache2-foreground"]
+# Build Android APK (release)
+RUN flutter build apk --release
+
+# Expose build output as a volume
+VOLUME ["/app/build/app/outputs/flutter-apk"]
+
+# Default command (prints location of APK)
+CMD ["echo", "APK built at build/app/outputs/flutter-apk/app-release.apk"]
