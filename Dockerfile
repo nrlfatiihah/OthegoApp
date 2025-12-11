@@ -1,5 +1,5 @@
 # Use official Flutter SDK image
-FROM cirrusci/flutter:stable AS builder
+FROM cirrusci/flutter:3.8.0-10.1.pre AS builder
 
 # Set working directory
 WORKDIR /app
