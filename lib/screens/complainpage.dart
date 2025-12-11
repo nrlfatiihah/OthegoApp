@@ -22,13 +22,22 @@ class _HelpContactPageState extends State<HelpContactPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _complainController = TextEditingController();
   int _currentIndex = 3;
+  String? _selectedCategory;
+
+  final List<String> _categories = [
+    "Room Issue",
+    "Payment Issue",
+    "Noise Complaint",
+    "Cleanliness",
+    "Facilities"
+  ];
 
   Future<void> _submitComplain() async {
     if (_formComplainKey.currentState!.validate()) {
       try {
         final response = await http.post(
           Uri.parse(
-              'http://192.168.0.162/OthegoApp/OthegoApp/Othego_mobile/complain.php'),
+              'http://172.20.10.4/OthegoApp/OthegoApp/Othego_mobile/complain.php'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'fullName': _fullNameController.text,
@@ -132,6 +141,34 @@ class _HelpContactPageState extends State<HelpContactPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 15),
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
+                decoration: InputDecoration(
+                  hintText: "Select complaint category",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                items: _categories.map((category) {
+                  return DropdownMenuItem(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a category';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 15),
               const SizedBox(height: 15),
               TextFormField(
                 controller: _complainController,
