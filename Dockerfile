@@ -1,26 +1,28 @@
-# Use official Flutter SDK image
-FROM cirrusci/flutter:3.8.0-10.1.pre AS builder
+# Stage 1: Build APK
+FROM ghcr.io/cirruslabs/flutter:latest AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy pubspec files first for caching dependencies
+# Cache Gradle dependencies
+ENV GRADLE_USER_HOME=/app/.gradle
+
+# Copy pubspec files first for caching
 COPY pubspec.* ./
 
 # Get dependencies
 RUN flutter pub get
 
-# Copy the rest of the project
+# Copy rest of project
 COPY . .
 
-# Pre-cache Flutter artifacts (optional)
+# Pre-cache Flutter artifacts
 RUN flutter precache
 
-# Build Android APK (release)
+# Build release APK
 RUN flutter build apk --release
 
-# Expose build output as a volume
-VOLUME ["/app/build/app/outputs/flutter-apk"]
-
-# Default command (prints location of APK)
-CMD ["echo", "APK built at build/app/outputs/flutter-apk/app-release.apk"]
+# Stage 2: Minimal image with APK only
+FROM alpine:latest
+WORKDIR /app
+COPY --from=builder /app/build/app/outputs/flutter-apk/app-release.apk .
+CMD ["echo", "APK is available at /app/app-release.apk"]
