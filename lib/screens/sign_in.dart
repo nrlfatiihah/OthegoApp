@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:othego_project/screens/admin_dashboard.dart';
 import 'package:othego_project/widgets/custom_scaffold.dart';
 import 'homepage.dart';
+import 'sign_up.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -232,20 +233,30 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(height: 20),
                       Center(
                         child: GestureDetector(
-                            onTap: () {},
-                            child: RichText(
-                              text: const TextSpan(
-                                  text: "Don't have an account? ",
-                                  style: TextStyle(color: Colors.black),
-                                  children: [
-                                    TextSpan(
-                                      text: "Sign Up",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                  ]),
-                            )),
+                          onTap: () {
+                            // Navigate to the SignUp page when the user taps on "Sign Up"
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SignUp()), // Navigate to the SignUp page
+                            );
+                          },
+                          child: RichText(
+                            text: const TextSpan(
+                              text: "Don't have an account? ",
+                              style: TextStyle(color: Colors.black),
+                              children: [
+                                TextSpan(
+                                  text: "Sign Up",
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
