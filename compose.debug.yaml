@@ -1,6 +1,0 @@
-services:
-  othegoapp:
-    image: othegoapp
-    build:
-      context: .
-      dockerfile: ./Dockerfile
