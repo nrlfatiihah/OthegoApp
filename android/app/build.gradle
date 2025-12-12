@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.othego_project"
-    compileSdk 34
+    compileSdk 36
     ndkVersion = "25.1.8937393"
 
     compileOptions {
