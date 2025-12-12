@@ -18,8 +18,8 @@ class _RoomListingScreenState extends State<RoomListingScreen> {
   // Function to fetch room data from PHP API
   Future<void> fetchRooms() async {
     try {
-      final response = await http.get(Uri.parse(
-          'http://192.168.0.162/OthegoApp/OthegoApp/Othego_mobile/get_room.php'));
+      final response =
+          await http.get(Uri.parse('http://10.0.2.2:8080/get_room.php'));
       if (response.statusCode == 200) {
         List<dynamic> data = json.decode(response.body);
         setState(() {

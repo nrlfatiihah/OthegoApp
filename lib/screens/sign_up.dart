@@ -20,8 +20,7 @@ class _SignUpState extends State<SignUp> {
     if (_formSignUpKey.currentState!.validate()) {
       try {
         final response = await http.post(
-          Uri.parse(
-              'http://192.168.0.162/OthegoApp/OthegoApp/Othego_mobile/signup.php'),
+          Uri.parse('http://10.0.2.2:8080/signup.php'),
           body: jsonEncode({
             'fullName': _fullNameController.text,
             'email': _emailController.text,

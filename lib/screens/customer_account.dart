@@ -20,8 +20,7 @@ class _CustomerAccountState extends State<CustomerAccount> {
   }
 
   Future<void> fetchCustomers() async {
-    const String apiUrl =
-        'http://192.168.0.162/OthegoApp/OthegoApp/Othego_mobile/get_user.php';
+    const String apiUrl = 'http://10.0.2.2:8080/get_user.php';
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {

@@ -7,7 +7,6 @@ import 'package:othego_project/screens/transactionhistory1.dart';
 import 'package:othego_project/screens/faq_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:othego_project/show_room_screen_google.dart';
 
 class HelpContactPage extends StatefulWidget {
@@ -37,8 +36,7 @@ class _HelpContactPageState extends State<HelpContactPage> {
     if (_formComplainKey.currentState!.validate()) {
       try {
         final response = await http.post(
-          Uri.parse(
-              'http://172.20.10.4/OthegoApp/OthegoApp/Othego_mobile/complain.php'),
+          Uri.parse('http://10.0.2.2:8080/complain.php'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({
             'fullName': _fullNameController.text,
@@ -88,171 +86,174 @@ class _HelpContactPageState extends State<HelpContactPage> {
           statusBarBrightness: Brightness.light,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formComplainKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "DO U NEED HELP? CONTACT US",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "If you have any issue with your room, please fill in this form",
-                style: TextStyle(fontSize: 14),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _fullNameController,
-                decoration: InputDecoration(
-                  hintText: "Enter your full name",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: _formComplainKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "DO U NEED HELP? CONTACT US",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your full name';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 15),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  hintText: "Enter your email",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                const SizedBox(height: 10),
+                const Text(
+                  "If you have any issue with your room, please fill in this form",
+                  style: TextStyle(fontSize: 14),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 15),
-              DropdownButtonFormField<String>(
-                value: _selectedCategory,
-                decoration: InputDecoration(
-                  hintText: "Select complaint category",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                items: _categories.map((category) {
-                  return DropdownMenuItem(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a category';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 15),
-              const SizedBox(height: 15),
-              TextFormField(
-                controller: _complainController,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: "Complain here...",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your complaint';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _submitComplain,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFF4747),
-                    shape: RoundedRectangleBorder(
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _fullNameController,
+                  decoration: InputDecoration(
+                    hintText: "Enter your full name",
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15.0),
-                    child: Text(
-                      "SUBMIT",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your full name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 15),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: "Enter your email",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 15),
+                DropdownButtonFormField<String>(
+                  value: _selectedCategory,
+                  decoration: InputDecoration(
+                    hintText: "Select complaint category",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  items: _categories.map((category) {
+                    return DropdownMenuItem(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedCategory = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a category';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 15),
+                TextFormField(
+                  controller: _complainController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    hintText: "Complain here...",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your complaint';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _submitComplain,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF4747),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15.0),
+                      child: Text(
+                        "SUBMIT",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const Spacer(),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Icon(Icons.phone, color: Colors.black),
-                      SizedBox(height: 5),
-                      Text("Phone"),
-                      Text("111 111 111"),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(Icons.email, color: Colors.black),
-                      SizedBox(height: 5),
-                      Text("E-MAIL"),
-                      Text("info@company.com"),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const FAQPage()),
-                    );
-                  },
-                  child: const Text(
-                    "View FAQ",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.blue,
+                const SizedBox(height: 30),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Icon(Icons.phone, color: Colors.black),
+                        SizedBox(height: 5),
+                        Text("Phone"),
+                        Text("111 111 111"),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Icon(Icons.email, color: Colors.black),
+                        SizedBox(height: 5),
+                        Text("E-MAIL"),
+                        Text("info@company.com"),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FAQPage()),
+                      );
+                    },
+                    child: const Text(
+                      "View FAQ",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
@@ -298,8 +299,6 @@ class _HelpContactPageState extends State<HelpContactPage> {
               MaterialPageRoute(builder: (context) => const Profile()),
             );
           }
-
-          // Handle navigation
         },
         items: const [
           BottomNavigationBarItem(
