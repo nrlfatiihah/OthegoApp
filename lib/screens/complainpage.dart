@@ -4,6 +4,7 @@ import 'package:othego_project/screens/homepage.dart';
 import 'package:othego_project/screens/profile.dart';
 import 'package:othego_project/screens/successfulcomplain.dart';
 import 'package:othego_project/screens/transactionhistory1.dart';
+import 'package:othego_project/screens/faq_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -233,6 +234,24 @@ class _HelpContactPageState extends State<HelpContactPage> {
                 ],
               ),
               const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const FAQPage()),
+                    );
+                  },
+                  child: const Text(
+                    "View FAQ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
