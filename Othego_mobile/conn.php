@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "othego_app";
+$host = "db";           // MySQL container name from docker-compose
+$user = "othego";       // MySQL user from docker-compose
+$pass = "othego123";    // MySQL password
+$dbname = "othego_db";  // Database name inside MySQL container
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 

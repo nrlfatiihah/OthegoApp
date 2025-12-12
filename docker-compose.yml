@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend1
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=othego
+      - DB_PASSWORD=othego123
+      - DB_NAME=othego_db
+    volumes:
+      - ./Othego_mobile:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - internal
+
+  db:
+    image: mysql:8.0
+    container_name: db_sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=othego_db
+      - MYSQL_USER=othego
+      - MYSQL_PASSWORD=othego123
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./Othego_mobile/othego_app.sql:/docker-entrypoint-initdb.d/othego_app.sql
+      - mysql_data:/var/lib/mysql
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  mysql_data:

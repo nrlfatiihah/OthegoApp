@@ -81,8 +81,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   }
 
   Future<void> _updateProfile() async {
-    final url = Uri.parse(
-        'http://192.168.0.162/OthegoApp/OthegoApp/Othego_mobile/update_profile.php');
+    final url = Uri.parse('http://10.0.2.2:8080/update_profile.php');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
