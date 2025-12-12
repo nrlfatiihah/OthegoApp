@@ -1,5 +1,5 @@
 <?php
-$host = "db";
+$host = "localhost";
 $user = "root";
 $pass = "";
 $dbname = "othego_app";
